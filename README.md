@@ -4,14 +4,15 @@ nodemail
 简易 web 邮箱
 
 
-##安装
+###安装
 
 ```
 npm install nodemailer
+npm install imap
 ```
 
 
-##相关链接
+###相关链接
 [nodeMailer](https://github.com/andris9/Nodemailer)  
 [node-imap](https://github.com/mscdex/node-imap)  
 [simplesmtp](https://github.com/andris9/simplesmtp)  
