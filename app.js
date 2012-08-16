@@ -7,8 +7,12 @@ var app = express.createServer();
 
 app.configure(function() {
   var viewsRoot = path.join(__dirname, 'views');
-  app.set('views engine', 'html');
+  // View 默认的根目录为 viewsRoot 的值
   app.set('views', viewsRoot);
+  // View 引擎默认处理 html 后缀
+  app.set('views engine', 'html');
+  //  启用 View 缓存（在开发阶段被关闭）
+  app.set('view cache', false);
   app.register('.html', require('ejs'));
 
   // app.use(express.bodyParser({
@@ -33,6 +37,7 @@ app.listen(config.port);
 var staticDir = path.join(__dirname, 'public');
 app.configure('development', function() {
   app.use(express.static(staticDir));
+  // 在 HTML 页面中显示程序传递和抛出的异常
   app.use(express.errorHandler({
     dumpExceptions: true,
     showStack: true
