@@ -28,6 +28,12 @@ app.configure(function() {
 app.helpers({
   config: config
 });
+app.dynamicHelpers({
+  csrf: function(req, res) {
+    // todo csrf -> undefined ?
+    return req.session ? req.session._csrf : '';
+  }
+});
 
 routes(app);
 

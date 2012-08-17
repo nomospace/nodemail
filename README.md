@@ -7,7 +7,7 @@ nodemail
 ###安装
 
 ```
-npm install nodemailer imap ejs express 
+npm install nodemailer imap ejs express validator
 ```
 
 

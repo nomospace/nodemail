@@ -1,4 +1,5 @@
 var site = require('./controllers/site');
+var sign = require('./controllers/sign');
 var express = require('express');
 var path = require('path');
 
@@ -14,6 +15,8 @@ module.exports = function(app) {
   // app.get('/500', function(req, res) {
   //   throw new Error('500!');
   // });
+  app.get('/signin', sign.showLogin);
+  app.post('/signin', sign.login);
   app.get('*', function(req, res) {
     res.render('index.html', {});
     // throw new NotFound;

@@ -520,6 +520,7 @@ textarea[id^=wmd-input] {
 .navbar .brand {
 	padding: 7px 0px 0px 20px;
 	width: 150px;
+	color: #fff;
 }
 .navbar .navbar-search {
 	margin-top: 7px;
