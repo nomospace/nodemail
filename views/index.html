@@ -1,1 +1,4 @@
-Index page
+<% if(locals.currentUser) { %>
+	<h2>name:<%=locals.currentUser.name%></h2>
+	<h2>pass:<%=locals.currentUser.pass%></h2>
+<% } %>

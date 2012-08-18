@@ -41,7 +41,8 @@
             %>
             <li><a href="<%- nav[0] %>" target="<%- nav[2] %>"><%- nav[1] %></a></li> 
             <% } %>
-            <% if (locals.current_user) { %>
+            <% locals %>
+            <% if (locals.currentUser) { %>
             <li><a href='/setting'>设置</a></li>  
             <li><a href='/signout'>退出</a></li>  
             <% } else { %>

@@ -15,12 +15,13 @@ app.configure(function() {
   app.set('view cache', false);
   app.register('.html', require('ejs'));
 
-  // app.use(express.bodyParser({
-  // }));
+  app.use(express.bodyParser({}));
   app.use(express.cookieParser());
   app.use(express.session({
     secret: config.sessionSecret
   }));
+  // custom middleware
+  app.use(require('./controllers/sign').authUser);
 });
 
 // set static, dynamic helpers
@@ -30,7 +31,7 @@ app.helpers({
 });
 app.dynamicHelpers({
   csrf: function(req, res) {
-    // todo csrf -> undefined ?
+    // todo csrf -> undefined
     return req.session ? req.session._csrf : '';
   }
 });

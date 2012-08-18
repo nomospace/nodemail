@@ -16,6 +16,7 @@ module.exports = function(app) {
   //   throw new Error('500!');
   // });
   app.get('/signin', sign.showLogin);
+  app.get('/signout', sign.signout)
   app.post('/signin', sign.login);
   app.get('*', function(req, res) {
     res.render('index.html', {});
