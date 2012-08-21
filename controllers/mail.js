@@ -1,5 +1,9 @@
 exports.index = function(req, res, next) {
-  res.render('mail/index.html', {});
+  if (req.session.user) {
+    res.render('mail/index.html', {});
+  } else {
+    res.render('sign/signin.html');
+  }
   // _getMail(req, res);
 };
 

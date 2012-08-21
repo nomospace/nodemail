@@ -42,14 +42,14 @@ app.listen(config.port);
 
 // 设置静态资源根目录
 var staticDir = path.join(__dirname, 'public');
-app.configure('development', function() {
+// app.configure('development', function() {
   app.use(express.static(staticDir));
   // 在 HTML 页面中显示程序传递和抛出的异常
   app.use(express.errorHandler({
     dumpExceptions: true,
     showStack: true
   }));
-});
+// });
 
 console.log(config.host + ':' + config.port);
 module.exports = app;
