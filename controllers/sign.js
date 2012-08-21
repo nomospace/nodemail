@@ -22,7 +22,7 @@ exports.login = function(req, res, next) {
 	req.session.user = user;
 	res.local('currentUser', req.session.user);
 
-	res.redirect('/');
+	res.redirect('/main');
 }
 
 exports.signout = function(req, res, next) {
