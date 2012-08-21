@@ -1,16 +1,14 @@
-// $(function() {
-//   $('#search_form').submit(function(e) {
-//     e.preventDefault();
-//     search();
-//   });
+$(function() {
+  // debugger;
+  var path = location.pathname;
+  if (path == '/mail') {
+    _getInbox();
+  }
 
-//   function search() {
-//     var q = document.getElementById('q');
-//     if (q.value) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }
-
-// });
+  function _getInbox() {
+    $.getJSON('/mail/inbox').done(function(result) {
+      console.log(result);
+      $('#J_content').html(JSON.stringify(result.data));
+    });
+  }
+});
