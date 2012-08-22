@@ -16,7 +16,8 @@ exports.inbox = function(req, res, next) {
 }
 
 function _getMail(req, res) {
-  var user = req.session.user;
+  var user = req.session.user,
+    mailJson = {};
   // console.log(user.name, user.pass);
   var ImapConnection = require('imap').ImapConnection,
     util = require('util'),
@@ -36,8 +37,11 @@ function _getMail(req, res) {
   var box, cmds, next = 0,
     cb = function(err) {
       if (err) die(err);
-      else if (next < cmds.length) cmds[next++].apply(this, Array.prototype.slice.call(arguments).slice(1));
+      else if (next < cmds.length) {
+        cmds[next++].apply(this, Array.prototype.slice.call(arguments).slice(1));
+      }
     };
+
   cmds = [
 
   function() {
@@ -46,21 +50,24 @@ function _getMail(req, res) {
     imap.openBox('INBOX', false, cb);
   }, function(result) {
     box = result;
-    imap.search(['SEEN', ['SINCE', 'August 15, 2012']], cb);
+    mailJson.messages = box.messages;
+    // console.log(box);
+    imap.search(['ALL', ['SINCE', 'August 16, 2012']], cb);
   }, function(results) {
     var fetch = imap.fetch(results, {
       request: {
-        headers: ['from', 'to', 'subject', 'date']
+        body: true
+        // headers: ['from', 'to', 'subject', 'date']
       }
     });
     var message;
     fetch.on('message', function(msg) {
-      console.log('Got message: ' + util.inspect(msg, true, 5));
+      // console.log('Got message: ' + util.inspect(msg, true, 5));
       msg.on('data', function(chunk) {
-        console.log('Got message chunk of size ' + chunk.length);
+        // console.log('Got message chunk of size ' + chunk.length);
       });
       msg.on('end', function() {
-        console.log(msg.structure);
+        // console.log(msg);
         message = msg;
         // console.log('Finished message: ' + util.inspect(msg, false, 5));
       });
