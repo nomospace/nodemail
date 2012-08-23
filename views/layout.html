@@ -12,7 +12,9 @@
     <% } %>
     <!-- style -->
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/docs.css" /> -->
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />    
     <!-- script -->
     <script src='/libs/jquery/jquery.js'></script>
     <script src='/libs/bootstrap/js/bootstrap.js'></script>
@@ -43,7 +45,7 @@
             <% } %>
             <% locals %>
             <% if (locals.currentUser) { %>
-            <li><a href='/setting'>设置</a></li>  
+            <li><a href='/mail'>邮箱</a></li>  
             <li><a href='/signout'>退出</a></li>  
             <% } else { %>
             <li><a href='/signin'>登录</a></li> 

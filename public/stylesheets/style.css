@@ -5,7 +5,7 @@ body,p {
 	font-family: "Helvetica Neue","Georgia" Helvetica, Arial, sans-serif;
 }
 #wrapper {
-	background: #d0d6db;
+	/*background: #d0d6db;*/
 }
 #main {
 	width: 960px;

@@ -4,5 +4,4 @@ exports.index = function(req, res, next) {
   } else {
     res.render('sign/signin.html');
   }
-  // _getMail(req, res);
 };
