@@ -1,5 +1,9 @@
 var mailUtil = require('./mail-util');
 
+exports.index = function(req, res) {
+    res.render('mail/inbox.html');
+}
+
 exports.getList = function(req, res, next) {
   _getMail(req, res);
 }

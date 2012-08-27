@@ -17,9 +17,10 @@ module.exports = function(app) {
   app.get('/signout', sign.signout)
   app.post('/signin', sign.login);
   app.get('/mail', mail.index);
+  app.get('/mail/inbox', inbox.index);
 
   // ajax
-  app.get('/mail/inbox', inbox.getList);
+  app.get('/ajax/mail/inbox', inbox.getList);
 
 
   app.get('*', function(req, res) {
