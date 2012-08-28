@@ -1,9 +1,12 @@
 var mailUtil = require('./mail-util');
+var fs = require('fs');
 
-var _imap;
+var cb = mailUtil.cb;
+var imap;
+var mailObject = {};
 
 exports.index = function(req, res) {
-    res.render('mail/inbox.html');
+  res.render('mail/inbox.html');
 }
 
 exports.getList = function(req, res, next) {
@@ -11,16 +14,12 @@ exports.getList = function(req, res, next) {
 }
 
 function _getMail(req, res) {
-  var user = req.session.user,
-  imap, mailObject = {};
+  var user = req.session.user;
   if (!user) return;
-  // console.log(user.name, user.pass);
-  console.log('get');
 
-  if (!_imap) {
-    _imap = mailUtil.connection(user);
+  if (!imap) {
+    imap = mailUtil.connection(user);
   }
-  imap = _imap;
 
   // var ImapConnection = require('imap').ImapConnection,
   //  util = require('util'),
@@ -42,53 +41,69 @@ function _getMail(req, res) {
   //      cmds[next++].apply(this, Array.prototype.slice.call(arguments).slice(1));
   //    }
   //  };
-  var cb = mailUtil.cb,
-    box;
-
   mailUtil.setHandlers([
+    _connect, 
+    _openBox, 
+    _search, 
+    function(results) {
+      _fetch(results, res);
+    }]);
 
-  function() {
-    console.log('connect...');
-    imap.connect(cb);
-  }, function() {
-    imap.openBox('INBOX', false, cb);
-  }, function(result) {
-    console.log(result);
-    box = result;
-    mailObject.messages = box.messages;
-    // console.log(box);
-    imap.search(['ALL', ['SINCE', 'August 20, 2012']], cb);
-  }, function(results) {
-    var fetch = imap.fetch(results, {
-      request: {
-        body: true
-        // headers: ['from', 'to', 'subject', 'date']
-      }
-    });
-    // var message;
-    fetch.on('message', function(msg) {
-      // console.log('Got message: ' + util.inspect(msg, true, 5));
-      msg.on('data', function(chunk) {
-        // console.log('Got message chunk of size ' + chunk.length);
-      });
-      msg.on('end', function() {
-        // console.log(msg);
-        // message = msg;
-        mailObject.msg = msg;
-        // console.log('Finished message: ' + util.inspect(msg, false, 5));
-      });
-    });
-    fetch.on('end', function() {
-      // 返回数据
-      res.json({
-        status: 'success',
-        data: mailObject
-      });
-      console.log('Done fetching all messages!');
-      // imap.logout(cb);
-    });
-  }
-
-  ]);
   cb();
+}
+
+function _connect() {
+  console.log('connect...');
+  imap.connect(cb);
+}
+
+function _openBox() {
+  imap.openBox('INBOX', false, cb);
+}
+
+function _search(results) {
+  console.log(results);
+  mailObject.messages = results.messages;
+  imap.search(['ALL', ['SINCE', 'August 28, 2012']], cb);
+}
+
+function _fetch(results, res) {
+  var fetch = imap.fetch(results, {
+    request: {
+      body: true
+      // headers: ['from', 'to', 'subject', 'date']
+    }
+  });
+
+  // var message;
+  var fileStream, msgBody = '';
+
+  fetch.on('message', function(msg) {
+    // console.log('Got message: ' + util.inspect(msg, true, 5));
+    fileStream = fs.createWriteStream('msg-' + msg.seqno + '-raw.txt');
+    msg.on('data', function(chunk) {
+      // console.log('Got message chunk of size ' + chunk.length);
+      fileStream.write(chunk);
+      msgBody += chunk;
+    });
+    msg.on('end', function() {
+      // console.log(msg);
+      // message = msg;
+      mailObject.msg = msg;
+      mailObject.msg.body = msgBody;
+      // console.log(msgBody);
+      fileStream.end();
+      // console.log('Finished message: ' + util.inspect(msg, false, 5));
+    });
+  });
+
+  fetch.on('end', function() {
+    // 返回数据
+    res.json({
+      status: 'success',
+      data: mailObject
+    });
+    console.log('Done fetching all messages!');
+    // imap.logout(cb);
+  });
 }

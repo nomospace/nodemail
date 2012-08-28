@@ -23,8 +23,8 @@
       <p>{{#each x-cm-transid}}{{.}}{{/each}}</p>
       <p>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
       <p>{{#each x-originating-ip}}{{.}}{{/each}}</p>
-      <p></p>
     {{/headers}}
+    <iframe>{{body}}</iframe>
   {{/msg}}
 </script>
 <script type="text/javascript" src="/javascripts/inbox.js"></script>
