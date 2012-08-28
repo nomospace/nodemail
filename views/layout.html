@@ -20,6 +20,7 @@
     <!--script src='/libs/backbone/underscore.js'></script>
     <script src='/libs/backbone/backbone.js'></script-->
     <script src='/libs/bootstrap/js/bootstrap.js'></script>
+    <script src='/libs/handlebars/handlebars.js'></script>
     <script src='/javascripts/main.js'></script>
     <% if (locals.topic) { %>
     <title><%= topic.title %> - <%= config.name %></title>
@@ -53,8 +54,8 @@
             <li><a href='/signin'>登录</a></li> 
             <% } %>
           </ul>
-          <a href="https://github.com/sdg-sysdev/nodemail">
-            <img style="position: absolute; top: 0; left: 0; border: 0;" src="/images/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub">
+          <a class="fork2github" href="https://github.com/sdg-sysdev/nodemail">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub">
           </a>
         </div>
       </div>

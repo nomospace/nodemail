@@ -1,16 +1,22 @@
 $(function() {
-	// debugger;
-	// var path = location.pathname;
-	// if (path == '/mail') {
-	// 	_getInbox();
-	// }
+  
+  'use strict';
 
-	function _getInbox() {
-		$.getJSON('/ajax/mail/inbox').done(function(result) {
-			console.log(result);
-			$('#J_content').html(JSON.stringify(result.data));
-		});
-	}
+  var inboxTpl = $('#inbox_tpl').html();
 
-	_getInbox();
-})
+  function _getInbox() {
+    $.getJSON('/ajax/mail/inbox').done(function(result) {
+      console.log(result);
+      var tpl = Handlebars.compile(inboxTpl),
+        context = result.data;
+      // Handlebars.registerHelper('username', function() {
+      //   return unio.cfg.username;
+      // });
+      
+      $('#J_content').html(tpl(context));
+    });
+  }
+
+  _getInbox();
+
+});

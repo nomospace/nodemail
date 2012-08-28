@@ -1,5 +1,7 @@
 var mailUtil = require('./mail-util');
 
+var _imap;
+
 exports.index = function(req, res) {
     res.render('mail/inbox.html');
 }
@@ -10,11 +12,15 @@ exports.getList = function(req, res, next) {
 
 function _getMail(req, res) {
   var user = req.session.user,
-    mailJson = {};
+  imap, mailObject = {};
   if (!user) return;
   // console.log(user.name, user.pass);
   console.log('get');
-  var imap = mailUtil.connection(user);
+
+  if (!_imap) {
+    _imap = mailUtil.connection(user);
+  }
+  imap = _imap;
 
   // var ImapConnection = require('imap').ImapConnection,
   //  util = require('util'),
@@ -47,10 +53,11 @@ function _getMail(req, res) {
   }, function() {
     imap.openBox('INBOX', false, cb);
   }, function(result) {
+    console.log(result);
     box = result;
-    mailJson.messages = box.messages;
+    mailObject.messages = box.messages;
     // console.log(box);
-    imap.search(['ALL', ['SINCE', 'August 16, 2012']], cb);
+    imap.search(['ALL', ['SINCE', 'August 20, 2012']], cb);
   }, function(results) {
     var fetch = imap.fetch(results, {
       request: {
@@ -58,7 +65,7 @@ function _getMail(req, res) {
         // headers: ['from', 'to', 'subject', 'date']
       }
     });
-    var message;
+    // var message;
     fetch.on('message', function(msg) {
       // console.log('Got message: ' + util.inspect(msg, true, 5));
       msg.on('data', function(chunk) {
@@ -66,7 +73,8 @@ function _getMail(req, res) {
       });
       msg.on('end', function() {
         // console.log(msg);
-        message = msg;
+        // message = msg;
+        mailObject.msg = msg;
         // console.log('Finished message: ' + util.inspect(msg, false, 5));
       });
     });
@@ -74,10 +82,10 @@ function _getMail(req, res) {
       // 返回数据
       res.json({
         status: 'success',
-        data: message
+        data: mailObject
       });
       console.log('Done fetching all messages!');
-      imap.logout(cb);
+      // imap.logout(cb);
     });
   }
 

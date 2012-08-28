@@ -78,4 +78,13 @@
 }
 .bs-docs-sidenav {
 	margin: 0;
-}	
+}
+
+@media screen and(max-width: 1060px) {
+/*  .fork2github {
+    display: none;
+  }*/
+}
+.navbar .nav.pull-right{
+  margin-right: 100px;
+}

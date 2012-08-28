@@ -3,4 +3,28 @@
 <div class="span9" id='J_content'>
   正在获取数据...
 </div>
-<<script type="text/javascript" src="/javascripts/inbox.js"></script>
+
+<script id="inbox_tpl" type="tpl/cache">
+  {{#messages}}
+    <p>共{{total}}封邮件，其中{{new}}封未读</p>
+  {{/messages}}
+  {{#msg}}
+    <p>{{date}}</p>
+    <p>{{#each flags}}{{.}}{{/each}}</p>
+    {{#headers}}
+      <p>{{#each content-type}}{{.}}{{/each}}</p>
+      <p>{{#each date}}{{.}}{{/each}}</p>
+      <p>{{#each from}}{{.}}{{/each}}</p>
+      <p>{{#each message-id}}{{.}}{{/each}}</p>
+      <p>{{#each mime-version}}{{.}}{{/each}}</p>
+      <p>{{#each received}}{{.}}{{/each}}</p>
+      <p>{{#each subject}}{{.}}{{/each}}</p>
+      <p>{{#each to}}{{.}}{{/each}}</p>
+      <p>{{#each x-cm-transid}}{{.}}{{/each}}</p>
+      <p>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
+      <p>{{#each x-originating-ip}}{{.}}{{/each}}</p>
+      <p></p>
+    {{/headers}}
+  {{/msg}}
+</script>
+<script type="text/javascript" src="/javascripts/inbox.js"></script>
