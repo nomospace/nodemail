@@ -81,10 +81,17 @@
 }
 
 @media screen and(max-width: 1060px) {
-/*  .fork2github {
-    display: none;
-  }*/
+
 }
+
 .navbar .nav.pull-right{
   margin-right: 120px;
+}
+
+.fork2github {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
 }

@@ -1,5 +1,5 @@
 $(function() {
-  
+
   'use strict';
 
   var inboxTpl = $('#inbox_tpl').html();
@@ -9,10 +9,11 @@ $(function() {
       console.log(result);
       var tpl = Handlebars.compile(inboxTpl),
         context = result.data;
-      // Handlebars.registerHelper('username', function() {
-      //   return unio.cfg.username;
-      // });
-      
+
+      Handlebars.registerHelper('dateFormat', function() {
+        return moment(this.date).fromNow();
+      });
+
       $('#J_content').html(tpl(context));
     });
   }

@@ -102,6 +102,7 @@ function _fetch(results, res) {
   });
 
   fetch.on('end', function() {
+    mailObject.msgs = mailObject.msgs.reverse();    
     // 返回数据
     res.json({
       status: 'success',

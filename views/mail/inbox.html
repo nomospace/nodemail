@@ -6,31 +6,33 @@
 
 <script id="inbox_tpl" type="tpl/cache">
   {{#messages}}
-    <p>共{{total}}封邮件，其中{{new}}封未读</p>
+    <p>共 <strong>{{total}}</strong> 封，其中 <a href="javascript:;">未读邮件</a> <strong>{{new}}</strong> 封 <a href="javascript:;">全部设为已读</a></p>
   {{/messages}}
-  <ul>
+  <table class="table table-striped">
   {{#each msgs}}
-    <li>
-      <div>{{chunk}}</div>
+    <tr>
+      <!--div>{{chunk}}</div-->
     {{#msg}}
-      <p><strong>flags:</strong>{{#each flags}}{{.}}{{/each}}</p>
-      <p><strong>date:</strong>{{date}}</p>
+      <!--p><strong>flags: </strong>{{#each flags}}{{.}}{{/each}}</p-->
+      <!--p><strong>date: </strong>{{dateFormat}}</p-->
       {{#headers}}
-        <p><strong>content-type:</strong>{{#each content-type}}{{.}}{{/each}}</p>
-        <p><strong>date:</strong>{{#each date}}{{.}}{{/each}}</p>
-        <p><strong>from:</strong>{{#each from}}{{.}}{{/each}}</p>
-        <p><strong>message-id:</strong>{{#each message-id}}{{.}}{{/each}}</p>
-        <p><strong>mime-version:</strong>{{#each mime-version}}{{.}}{{/each}}</p>
-        <p><strong>received:</strong>{{#each received}}{{.}}{{/each}}</p>
-        <p><strong>subject:</strong>{{#each subject}}{{.}}{{/each}}</p>
-        <p><strong>to:</strong>{{#each to}}{{.}}{{/each}}</p>
-        <p><strong>x-cm-transid:</strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
-        <p><strong>x-coremail-antispam:</strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
-        <p><strong>x-originating-ip:</strong>{{#each x-originating-ip}}{{.}}{{/each}}</p>
+        <td><strong>date: </strong>{{#each date}}{{.}}{{/each}}</td>
+        <td><strong>from: </strong>{{#each from}}{{.}}{{/each}}</td>
+        <td><strong>subject: </strong>{{#each subject}}{{.}}{{/each}}</td>
+        <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
+        <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
+        <p><strong>mime-version: </strong>{{#each mime-version}}{{.}}{{/each}}</p>
+        <p><strong>received: </strong>{{#each received}}{{.}}{{/each}}</p>
+        <p><strong>to: </strong>{{#each to}}{{.}}{{/each}}</p>
+        <p><strong>x-cm-transid: </strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
+        <p><strong>x-coremail-antispam: </strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
+        <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
       {{/headers}}
+    </tr>
     {{/msg}}
-    </li>
   {{/each}}
-  </ul>
+  </table>
 </script>
+<script type="text/javascript" src="/libs/moment/moment.js"></script>
+<script type="text/javascript" src="/libs/moment/lang/zh-cn.js"></script>
 <script type="text/javascript" src="/javascripts/inbox.js"></script>
