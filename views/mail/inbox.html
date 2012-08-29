@@ -8,23 +8,29 @@
   {{#messages}}
     <p>共{{total}}封邮件，其中{{new}}封未读</p>
   {{/messages}}
-  {{#msg}}
-    <p>{{date}}</p>
-    <p>{{#each flags}}{{.}}{{/each}}</p>
-    {{#headers}}
-      <p>{{#each content-type}}{{.}}{{/each}}</p>
-      <p>{{#each date}}{{.}}{{/each}}</p>
-      <p>{{#each from}}{{.}}{{/each}}</p>
-      <p>{{#each message-id}}{{.}}{{/each}}</p>
-      <p>{{#each mime-version}}{{.}}{{/each}}</p>
-      <p>{{#each received}}{{.}}{{/each}}</p>
-      <p>{{#each subject}}{{.}}{{/each}}</p>
-      <p>{{#each to}}{{.}}{{/each}}</p>
-      <p>{{#each x-cm-transid}}{{.}}{{/each}}</p>
-      <p>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
-      <p>{{#each x-originating-ip}}{{.}}{{/each}}</p>
-    {{/headers}}
-    <iframe>{{body}}</iframe>
-  {{/msg}}
+  <ul>
+  {{#each msgs}}
+    <li>
+      <div>{{chunk}}</div>
+    {{#msg}}
+      <p><strong>flags:</strong>{{#each flags}}{{.}}{{/each}}</p>
+      <p><strong>date:</strong>{{date}}</p>
+      {{#headers}}
+        <p><strong>content-type:</strong>{{#each content-type}}{{.}}{{/each}}</p>
+        <p><strong>date:</strong>{{#each date}}{{.}}{{/each}}</p>
+        <p><strong>from:</strong>{{#each from}}{{.}}{{/each}}</p>
+        <p><strong>message-id:</strong>{{#each message-id}}{{.}}{{/each}}</p>
+        <p><strong>mime-version:</strong>{{#each mime-version}}{{.}}{{/each}}</p>
+        <p><strong>received:</strong>{{#each received}}{{.}}{{/each}}</p>
+        <p><strong>subject:</strong>{{#each subject}}{{.}}{{/each}}</p>
+        <p><strong>to:</strong>{{#each to}}{{.}}{{/each}}</p>
+        <p><strong>x-cm-transid:</strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
+        <p><strong>x-coremail-antispam:</strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
+        <p><strong>x-originating-ip:</strong>{{#each x-originating-ip}}{{.}}{{/each}}</p>
+      {{/headers}}
+    {{/msg}}
+    </li>
+  {{/each}}
+  </ul>
 </script>
 <script type="text/javascript" src="/javascripts/inbox.js"></script>

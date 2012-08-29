@@ -64,7 +64,7 @@ function _openBox() {
 function _search(results) {
   console.log(results);
   mailObject.messages = results.messages;
-  imap.search(['ALL', ['SINCE', 'August 28, 2012']], cb);
+  imap.search(['ALL', ['SINCE', 'August 27, 2012']], cb);
 }
 
 function _fetch(results, res) {
@@ -75,24 +75,28 @@ function _fetch(results, res) {
     }
   });
 
-  // var message;
-  var fileStream, msgBody = '';
+  var fileStream, msgChunk = '';
+  mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
     // console.log('Got message: ' + util.inspect(msg, true, 5));
-    fileStream = fs.createWriteStream('msg-' + msg.seqno + '-raw.txt');
+    // fileStream = fs.createWriteStream('msg-' + msg.seqno + '-raw.txt');
     msg.on('data', function(chunk) {
       // console.log('Got message chunk of size ' + chunk.length);
-      fileStream.write(chunk);
-      msgBody += chunk;
+      // fileStream.write(chunk);
+      msgChunk += chunk;
     });
     msg.on('end', function() {
-      // console.log(msg);
-      // message = msg;
-      mailObject.msg = msg;
-      mailObject.msg.body = msgBody;
-      // console.log(msgBody);
-      fileStream.end();
+
+      mailObject.msgs.push({
+        'msg': msg,
+        'chunk': msgChunk
+      });
+
+      msgChunk = '';
+
+      // console.log(msgChunk);
+      // fileStream.end();
       // console.log('Finished message: ' + util.inspect(msg, false, 5));
     });
   });
