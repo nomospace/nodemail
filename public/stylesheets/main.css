@@ -74,6 +74,7 @@
 
 /* 自定义 */
 .bs-docs-sidebar {
+  position: fixed;
 	margin: 0;
 }
 .bs-docs-sidenav {
@@ -94,4 +95,8 @@
   right: 0;
   width: 150px;
   height: 150px;
+}
+
+.main-body {
+  margin-left: 240px;
 }

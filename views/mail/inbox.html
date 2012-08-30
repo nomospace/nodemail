@@ -1,6 +1,6 @@
 <%- partial('mail/side') %>
 
-<div class="span9" id='J_content'>
+<div class="main-body" id='J_content'>
   正在获取数据...
 </div>
 
@@ -9,28 +9,33 @@
     <p>共 <strong>{{total}}</strong> 封，其中 <a href="javascript:;">未读邮件</a> <strong>{{new}}</strong> 封 <a href="javascript:;">全部设为已读</a></p>
   {{/messages}}
   <table class="table table-striped">
-  {{#each msgs}}
     <tr>
-      <!--div>{{chunk}}</div-->
-    {{#msg}}
-      <!--p><strong>flags: </strong>{{#each flags}}{{.}}{{/each}}</p-->
-      <!--p><strong>date: </strong>{{dateFormat}}</p-->
-      {{#headers}}
-        <td><strong>date: </strong>{{#each date}}{{.}}{{/each}}</td>
-        <td><strong>from: </strong>{{#each from}}{{.}}{{/each}}</td>
-        <td><strong>subject: </strong>{{#each subject}}{{.}}{{/each}}</td>
-        <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
-        <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
-        <p><strong>mime-version: </strong>{{#each mime-version}}{{.}}{{/each}}</p>
-        <p><strong>received: </strong>{{#each received}}{{.}}{{/each}}</p>
-        <p><strong>to: </strong>{{#each to}}{{.}}{{/each}}</p>
-        <p><strong>x-cm-transid: </strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
-        <p><strong>x-coremail-antispam: </strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
-        <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
-      {{/headers}}
+      <th>发件人</th>
+      <th>主题</th>
+      <th>时间</th>
     </tr>
-    {{/msg}}
-  {{/each}}
+    {{#each msgs}}
+      <tr>
+        <!--div>{{chunk}}</div-->
+      {{#msg}}
+        <!--p><strong>flags: </strong>{{#each flags}}{{.}}{{/each}}</p-->
+        <!--p><strong>date: </strong>{{dateFormat date}}</p-->
+        {{#headers}}
+          <td>{{fromFormat}}</td>
+          <td>{{#each subject}}{{.}}{{/each}}</td>
+          <td>{{dateFormat ../date}}</td>
+          <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
+          <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
+          <p><strong>mime-version: </strong>{{#each mime-version}}{{.}}{{/each}}</p>
+          <p><strong>received: </strong>{{#each received}}{{.}}{{/each}}</p>
+          <p><strong>to: </strong>{{#each to}}{{.}}{{/each}}</p>
+          <p><strong>x-cm-transid: </strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
+          <p><strong>x-coremail-antispam: </strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
+          <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
+        {{/headers}}
+      </tr>
+      {{/msg}}
+    {{/each}}
   </table>
 </script>
 <script type="text/javascript" src="/libs/moment/moment.js"></script>
