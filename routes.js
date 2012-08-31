@@ -21,7 +21,7 @@ module.exports = function(app) {
 
   // ajax
   app.get('/ajax/mail/inbox', inbox.getList);
-
+  app.get('/ajax/mail/boxes', inbox.getBoxes);
 
   app.get('*', function(req, res) {
     res.render('index.html', {});

@@ -22,6 +22,12 @@ $(function() {
     });
   }
 
-  _getInbox();
+  function _getBoxes() {
+    $.getJSON('/ajax/mail/boxes').done(function(result) {
+      console.log(result);
+    });
+  }
 
+  _getInbox();
+  // _getBoxes();
 });

@@ -5,8 +5,6 @@ var _handlers;
 var _next = 0;
 
 exports.cb = function(err) {
-  console.log('cb...');
-  // var box;
   if (err) die(err);
   else if (_next < _handlers.length) {
     _handlers[_next++].apply(this, Array.prototype.slice.call(arguments).slice(1));
@@ -28,6 +26,10 @@ exports.connection = function(user) {
     port: 993,
     secure: true
   });
+}
+
+exports.isFunction = function(obj) {
+  return toString.call(obj) == '[object function]';
 }
 
 function die(err) {
