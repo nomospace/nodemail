@@ -1,10 +1,10 @@
 var mailUtil = require('./mail-util');
 var fs = require('fs');
+var mp = new (require('mailparser').MailParser)();
 
 var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
-var imap;
-var mailObject = {};
+var imap, mailObject = {};
 
 exports.index = function(req, res) {
   res.render('mail/inbox.html');
@@ -37,10 +37,11 @@ function _getMail(req, res) {
 }
 
 function _connect(fn) {
-  imap.connect(function(err, results) {
-    cb(err, results);
-    isFunction(fn) && fn();
-  });
+  imap.connect(cb);
+  // imap.connect(function(err, results) {
+  //   cb(err, results);
+  //   isFunction(fn) && fn();
+  // });
 }
 
 function _openBox() {
@@ -67,11 +68,26 @@ function _fetch(results, res) {
     // console.log('Got message: ' + util.inspect(msg, true, 5));
     // fileStream = fs.createWriteStream('msg-' + msg.seqno + '-raw.txt');
     msg.on('data', function(chunk) {
-      // console.log('Got message chunk of size ' + chunk.length);
+      console.log('Got message chunk of size ' + chunk.length);
       // fileStream.write(chunk);
       msgChunk += chunk;
     });
     msg.on('end', function() {
+
+      // todo
+      if (msgChunk) {
+        // setup an event listener when the parsing finishes
+        mp.on("end", function(mail_object) {
+          console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
+          console.log("Subject:", mail_object.subject); // Hello world!
+          console.log("Text body:", mail_object.text); // How are you today?
+        });
+
+        // send the email source to the parser
+        mp.write(msgChunk);
+        mp.end();
+      }
+
       mailObject.msgs.push({
         'msg': msg,
         'chunk': msgChunk
@@ -83,14 +99,12 @@ function _fetch(results, res) {
 
   fetch.on('end', function() {
     mailObject.msgs = mailObject.msgs.reverse();
-
     res.json({
       status: 'success',
       data: mailObject
     });
-
     console.log('Done fetching all messages!');
-    // imap.logout(cb);
+    imap.logout(cb);
   });
 }
 
