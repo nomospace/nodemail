@@ -1,10 +1,22 @@
+var util = require('util');
 var mailUtil = require('./mail-util');
 var fs = require('fs');
 var MailParser = require('mailparser').MailParser;
+var emitter = new (require('events').EventEmitter)();
 
 var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
-var imap, mailObject = {};
+var imap, mailObject = {msgs:[]};
+
+emitter.once('response', function(res) {
+  mailObject.msgs = mailObject.msgs.reverse();
+  res.json({
+    status: 'success',
+    data: mailObject
+  });
+  console.log('Done fetching all messages!');
+  imap.logout(cb);
+});
 
 exports.index = function(req, res) {
   res.render('mail/inbox.html');
@@ -54,70 +66,75 @@ function _search(results) {
 }
 
 function _fetch(results, res) {
-  var fetch = imap.fetch(results, {
-    request: {
-      body: true
-      // headers: ['from', 'to', 'subject', 'date']
-    }
-  });
+  var msgLength = results.length,
+    fetch = imap.fetch(results, {
+      request: {
+        body: 'full',
+        headers: false
+        // headers: ['from', 'to', 'subject', 'date']
+      }
+    });
 
+  console.log(msgLength);
+  
   var fileStream, msgChunk = '';
-  mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
+    // var fileName = 'msg-' + msg.seqno + '-raw.txt';
     // console.log('Got message: ' + util.inspect(msg, true, 5));
-    // fileStream = fs.createWriteStream('msg-' + msg.seqno + '-raw.txt');
+    // fileStream = fs.createWriteStream(fileName);
     msg.on('data', function(chunk) {
       // console.log('Got message chunk of size ' + chunk.length);
+      // fileStream.write(util.inspect(msg.headers, true, 20) + chunk);
       // fileStream.write(chunk);
       msgChunk = chunk;
     });
     msg.on('end', function() {
-      var text = '', headers = '';
       if (msgChunk) {
         var mp = new MailParser();
         mp.setMaxListeners(100);
 
         // setup an event listener when the parsing finishes
-        mp.on('headers', function(headers){
-          headers = headers;
-        });
-        mp.on("end", function(mail_object) {
-          console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
-          console.log("Subject:", mail_object.subject); // Hello world!
-          console.log("Text body:", mail_object.text); // How are you today?          
+        // mp.on('headers', function(headers){
+        //   headers = headers;
+        // });
+        mp.on("end", function(mail) {
+          mailObject.msgs.push({
+            'msg': msg,
+            'mail': mail
+          });
+
+          if (msgLength == mailObject.msgs.length) {
+            emitter.emit('response', res);
+          }
         });
 
-        var mail = new Buffer(msgChunk, 'utf-8');
-        for (var i = 0, len = mail.length; i < len; i++) {
-          mp.write(new Buffer([mail[i]]));
-        }
-        mp.end();
+        // var mail = new Buffer(msgChunk, 'utf-8');
+        // for (var i = 0, len = mail.length; i < len; i++) {
+        //   mp.write(new Buffer([mail[i]]));
+        // }
+        // mp.end();
+
+        // fs.createReadStream(fileName).pipe(mp);
 
         // send the email source to the parser
-        // mp.write(mail);
-        // mp.end(mail);
+        mp.write(msgChunk);
+        mp.end();
       }
 
-      mailObject.msgs.push({
-        'msg': msg,
-        'chunk': msgChunk,
-        'text': text,
-        'headers': headers
-      });
       // fileStream.end();
     });
   });
 
-  fetch.on('end', function() {
-    mailObject.msgs = mailObject.msgs.reverse();
-    res.json({
-      status: 'success',
-      data: mailObject
-    });
-    console.log('Done fetching all messages!');
-    imap.logout(cb);
-  });
+  // fetch.on('end', function() {
+    // mailObject.msgs = mailObject.msgs.reverse();
+    // res.json({
+    //   status: 'success',
+    //   data: mailObject
+    // });
+    // console.log('Done fetching all messages!');
+    // imap.logout(cb);
+  // });
 }
 
 // function _getBoxes(req, res) {
