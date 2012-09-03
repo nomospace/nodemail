@@ -101,7 +101,7 @@ function _fetch(results, res) {
 
       mailObject.msgs.push({
         'msg': msg,
-        // 'chunk': msgChunk,
+        'chunk': msgChunk,
         'text': text,
         'headers': headers
       });
