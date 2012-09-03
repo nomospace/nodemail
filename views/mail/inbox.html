@@ -17,13 +17,13 @@
     {{#each msgs}}
       <tr>
         <!--div>{{chunk}}</div-->
-      {{#msg}}
+      {{#mail}}
         <!--p><strong>flags: </strong>{{#each flags}}{{.}}{{/each}}</p-->
         <!--p><strong>date: </strong>{{dateFormat date}}</p-->
         {{#headers}}
-          <td>{{fromFormat}}</td>
+          <td>{{from}}</td>
           <td>{{#each subject}}{{.}}{{/each}}</td>
-          <td>{{dateFormat ../date}}</td>
+          <td>{{dateFormat date}}</td>
           <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
           <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
           <p><strong>mime-version: </strong>{{#each mime-version}}{{.}}{{/each}}</p>
@@ -34,7 +34,8 @@
           <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
         {{/headers}}
       </tr>
-      {{/msg}}
+      <tr><td colspan=3>{{{html}}}</td></tr>
+      {{/mail}}
     {{/each}}
   </table>
 </script>

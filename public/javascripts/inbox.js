@@ -13,9 +13,9 @@ $(function() {
       Handlebars.registerHelper('dateFormat', function(date) {
         return moment(date).format('LL');
       });
-      Handlebars.registerHelper('fromFormat', function() {
-        return this.from[0].slice(this.from[0].indexOf('<') + 1, this.from[0].indexOf('>'));
-      });
+      // Handlebars.registerHelper('fromFormat', function() {
+      //   return this.from[0].slice(this.from[0].indexOf('<') + 1, this.from[0].indexOf('>'));
+      // });
 
 
       $('#J_content').html(tpl(context));

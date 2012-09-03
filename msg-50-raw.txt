@@ -1,0 +1,189 @@
+Received: from =?GBK?B?zfjS19PKvP7W0NDE?= (unknown [192.168.194.3])
+	by mfast8 (Coremail) with SMTP id t8CowJAr1eObGT5Qg7hlBA--.4561S2;
+	Wed, 29 Aug 2012 21:31:07 +0800 (CST)
+From: =?UTF-8?B?572R5piT6YKu5Lu25Lit5b+D?= <mail@service.netease.com>
+Sender: =?UTF-8?B?572R5piT6YKu5Lu25Lit5b+D?= <mail@service.netease.com>
+To: "qatest4@163.com" <qatest4@163.com>
+Message-ID: <19738887.367081346247062612.JavaMail.mail@service.netease.com>
+Subject: =?UTF-8?B?aVBhZOOAgWlQaG9uZQ==?=
+ =?UTF-8?B?6YKu5Lu25a6i5oi356uv6Ieq5Yqo6YWN572u5oyH5Y2X?=
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUU5P28lY4IEw2IIxxk0rwAS0I0E0xvYzxvE
+	52x082IY62kv0487Mc02F40Eb4A2aVAYj7AlexkEI4k267I2xxyl5I8CrVAvF7xS0VCYjI
+	8vzVWUXwAqx4xG64x03VAFz4kmzcxKxVAvF2CEx7xS67AKxVWUtwAqx4xG64xvF2IEw4CE
+	5I8CrVC2j2Wl5I8CrVC2j2CE0s8v4I0Ex7kE8s4l5I8CrVC2zI80rVAvF2CEx7xS67AKxV
+	WUtwAv7VCjz48v1sIEY20_WwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC
+	0VAqx4xG64AKrs4lw4AK0VCY07AIYIkI8VC2zVAC3wAKzVCjr7xvwVAFz4v204v26I0v72
+	4l7I0Y6sxI4wCY02Avz4vE-sylc2IjII80xcxEwVAKI48JMxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_WwCF54CYxVAaw2AFwI0_Wr1UJVCq3s0DMxAqzxv26xkF7I0En4
+	kS14v26F1UJr0E3s0q3wCF72vEw2IIxxk0rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km
+	07C267AKxVWrJr1j6s0q3s1lx2IqxVAqx4xG67AKxVWUGVWUWwC20s026x8GjcxK67AKxV
+	WUJVWUGwC2zVA0820Y0xCF62I06xkIj41lx4CE17CEb7AF67AKxVWUJVWUXwCIc40Y0x0E
+	wIxGrbIYCTnIWIevJa73eTB2vfuFKfJI43ZEXa7sRABMt5UUUUU==
+Date: Wed, 29 Aug 2012 21:31:07 +0800 (CST)
+
+<table width=3D"606" align=3D"center" border=3D"0" cellspacing=3D"0" cellpa=
+dding=3D"0" background=3D"http://mimg.127.net/xm/mail_res/common/bg.png" st=
+yle=3D"font-size:14px">
+=09<tbody>
+=09=09<tr>
+=09=09=09<td colspan=3D"3" style=3D"line-height:0"><table width=3D"606" hei=
+ght=3D"66" background=3D"http://mimg.127.net/hd/all/120113_apple/120113/img=
+/m_top.jpg"  cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td width=3D"46"></td>
+=09=09=09=09=09=09<td height=3D"61" valign=3D"top" style=3D"line-height:0">=
+<table  cellpadding=3D"0" cellspacing=3D"0" border=3D"0" height=3D"61">
+=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td height=3D"25"></td>
+=09=09=09=09=09=09=09=09=09<td></td>
+=09=09=09=09=09=09=09=09=09<td></td>
+=09=09=09=09=09=09=09=09=09<td></td>
+=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td valign=3D"top" width=3D"106"><a href=3D"http=
+://mail.163.com/" target=3D"_blank"><img src=3D"http://mimg.127.net/logo/16=
+3logo-s.gif" alt=3D"163=E7=BD=91=E6=98=93=E5=85=8D=E8=B4=B9=E9=82=AE" borde=
+r=3D"0"/></a></td>
+=09=09=09=09=09=09=09=09=09<td valign=3D"top" width=3D"106"><a href=3D"http=
+://www.126.com/" target=3D"_blank"><img src=3D"http://mimg.127.net/logo/126=
+logo-s.gif" alt=3D"126=E7=BD=91=E6=98=93=E5=85=8D=E8=B4=B9=E9=82=AE" border=
+=3D"0"/></a></td>
+=09=09=09=09=09=09=09=09=09<td valign=3D"top" width=3D"106"><a href=3D"http=
+://www.yeah.net/" target=3D"_blank"><img src=3D"http://mimg.127.net/logo/ye=
+ahlogo-s.gif" alt=3D"yeah.net=E7=BD=91=E6=98=93=E5=85=8D=E8=B4=B9=E9=82=AE"=
+ border=3D"0"/></a></td>
+=09=09=09=09=09=09=09=09=09<td></td>
+=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09</table></td>
+=09=09=09=09=09=09<td width=3D"46"></td>
+=09=09=09=09=09</tr>
+=09=09=09=09</table></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td colspan=3D"3" align=3D"center"><img src=3D"http://mimg.127.net=
+/hd/all/120113_apple/120113/img/m_b.jpg" style=3D"height:139" alt=3D""/></t=
+d>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td width=3D"46"></td>
+=09=09=09<td width=3D"514" height=3D"40"><strong>=E5=B0=8A=E6=95=AC=E7=9A=
+=84=E7=94=A8=E6=88=B7=EF=BC=9A</strong></td>
+=09=09=09<td width=3D"46"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td width=3D"46"></td>
+=09=09=09<td width=3D"514"><br/>
+=09=09=09=09<p style=3D"font-size:14px;font-weight:400;margin:0;padding:0;t=
+ext-indent:2em;line-height:20px">=E5=9C=A8=E8=8B=B9=E6=9E=9C=E7=A7=BB=E5=8A=
+=A8=E8=AE=BE=E5=A4=87(iPad=E3=80=81iPhone=E3=80=81iPod Touch)=E9=82=AE=E4=
+=BB=B6=E5=AE=A2=E6=88=B7=E7=AB=AF=E4=B8=AD=E8=AE=BE=E7=BD=AE=E7=BD=91=E6=98=
+=93=E9=82=AE=E7=AE=B1=E5=90=8C=E6=AD=A5=EF=BC=8C=E4=B8=8D=E5=86=8D=E9=9C=80=
+=E8=A6=81=E5=A4=9A=E6=AD=A5=E6=93=8D=E4=BD=9C=EF=BC=8C=E6=88=91=E4=BB=AC=E5=
+=B8=AE=E6=82=A8=E8=87=AA=E5=8A=A8=E5=AE=8C=E6=88=90=E9=85=8D=E7=BD=AE=EF=BC=
+=8C=E8=BD=BB=E6=9D=BE=E6=94=B6=E5=8F=91=E9=82=AE=E4=BB=B6=E4=BA=AB=E5=8F=97=
+=E4=BB=A5=E4=B8=8B=E4=B8=89=E5=A4=A7=E5=A5=BD=E5=A4=84=EF=BC=9A</p></td>
+=09=09=09<td width=3D"46"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td width=3D"46"></td>
+=09=09=09<td width=3D"514">
+=09=09=09=09<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+=09=09=09=09=09<tr><td height=3D"30" colspan=3D"2"></td></tr>
+=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td><img src=3D"http://mimg.127.net/hd/all/120113_apple/1=
+20113/img/m_i1.jpg" alt=3D"" style=3D"height:48"/></td>
+=09=09=09=09=09=09<td><p style=3D"font-size:14px;font-weight:400;margin:0;p=
+adding:0;text-indent:2em;line-height:20px">=E6=96=B0=E9=82=AE=E4=BB=B6=E5=
+=88=B0=E8=BE=BE=E5=AE=9E=E6=97=B6=E6=8F=90=E9=86=92=EF=BC=8C=E5=8F=8A=E6=97=
+=B6=E9=AB=98=E6=95=88</p></td>
+=09=09=09=09=09</tr>
+=09=09=09=09=09<tr><td height=3D"20" colspan=3D"2"></td></tr>
+=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td><img src=3D"http://mimg.127.net/hd/all/120113_apple/1=
+20113/img/m_i2.jpg" alt=3D""  style=3D"height:48"/></td>
+=09=09=09=09=09=09<td><p style=3D"font-size:14px;font-weight:400;margin:0;p=
+adding:0;text-indent:2em;line-height:20px">=E6=94=B6=E4=BF=A1=E6=9B=B4=E5=
+=BF=AB=EF=BC=8C=E6=9B=B4=E6=96=B9=E4=BE=BF</p></td>
+=09=09=09=09=09</tr>
+=09=09=09=09=09<tr><td height=3D"20" colspan=3D"2"></td></tr>
+=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td><img src=3D"http://mimg.127.net/hd/all/120113_apple/1=
+20113/img/m_i3.jpg" alt=3D""  style=3D"height:48"/></td>
+=09=09=09=09=09=09<td><p style=3D"font-size:14px;font-weight:400;margin:0;p=
+adding:0;text-indent:2em;line-height:20px">=E7=9C=81=E7=94=B5=E7=9C=81=E6=
+=B5=81=E9=87=8F</p></td>
+=09=09=09=09=09</tr>
+=09=09=09=09=09<tr><td height=3D"30" colspan=3D"2"></td></tr>
+=09=09=09=09</table>
+=09=09=09</td>
+=09=09=09<td width=3D"46"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td width=3D"46"></td>
+=09=09=09<td width=3D"514">
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:15px 0;paddin=
+g:0;line-height:25px"><strong>=E8=87=AA=E5=8A=A8=E9=85=8D=E7=BD=AE=E6=96=B9=
+=E6=B3=95</strong>
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:0;padding:0;l=
+ine-height:25px">=E6=96=B9=E6=B3=95=E4=B8=80=EF=BC=9A=E5=A1=AB=E5=86=99=E8=
+=B4=A6=E5=8F=B7=EF=BC=8C=E6=8E=A5=E6=94=B6=E7=9F=AD=E4=BF=A1=EF=BC=8C=E7=82=
+=B9=E5=87=BB=E7=9F=AD=E4=BF=A1=E5=86=85=E9=93=BE=E6=8E=A5=E5=AE=8C=E6=88=90=
+=E8=87=AA=E5=8A=A8=E9=85=8D=E7=BD=AE=E3=80=82<a target=3D"_blank" href=3D"h=
+ttps://ssl.mail.163.com/config/mobileconfig/index" style=3D"color:#0747AC">=
+=E7=82=B9=E5=87=BB=E6=9F=A5=E7=9C=8B=E8=AF=A6=E7=BB=86</a></p>
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:0;padding:0;l=
+ine-height:25px">=E6=96=B9=E6=B3=95=E4=BA=8C=EF=BC=9A=E8=8B=B9=E6=9E=9C=E8=
+=AE=BE=E5=A4=87=E4=B8=8A=E9=80=9A=E8=BF=87=E6=B5=8F=E8=A7=88=E5=99=A8=E7=99=
+=BB=E5=BD=95=E7=BD=91=E6=98=93=E9=82=AE=E7=AE=B1=E5=90=8E=EF=BC=8C=E4=B8=80=
+=E9=94=AE=E8=AE=BE=E7=BD=AE=E3=80=82<a target=3D"_blank" href=3D"https://ss=
+l.mail.163.com/config/mobileconfig/index#2" style=3D"color:#0747AC">=E7=82=
+=B9=E5=87=BB=E6=9F=A5=E7=9C=8B=E8=AF=A6=E7=BB=86</a></p></td>
+=09=09=09<td width=3D"46"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td width=3D"46"></td>
+=09=09=09<td width=3D"514"><br/>
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:15px 0;paddin=
+g:0;line-height:20px"><strong>=E6=8C=87=E5=8D=97</strong>
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:0;padding:0;l=
+ine-height:25px"><a target=3D"_blank" href=3D"http://help.163.com/11/1129/1=
+6/7K1SOUO100753VB9.html?servCode=3D6020633 " style=3D"color:#0747AC">=E4=BB=
+=80=E4=B9=88=E6=98=AF=E8=8B=B9=E6=9E=9C=E8=87=AA=E5=8A=A8=E5=8C=96=E8=AE=BE=
+=E7=BD=AE</a></p>
+<p style=3D"font-size:12px;font-weight:400;margin:0;padding:0;line-height:2=
+5px"><a  target=3D"_blank" href=3D"http://help.163.com/11/1129/17/7K1U1I4E0=
+0753VB9.html?servCode=3D6020638" style=3D"color:#0747AC">=E5=A6=82=E4=BD=95=
+=E5=9C=A8=E8=8B=B9=E6=9E=9C=E7=BB=88=E7=AB=AF=E5=88=A0=E9=99=A4=E5=B7=B2=E8=
+=87=AA=E5=8A=A8=E5=8C=96=E8=AE=BE=E7=BD=AE=E7=9A=84=E7=BD=91=E6=98=93=E9=82=
+=AE=E7=AE=B1=EF=BC=9F</a></p>
+=09=09=09=09<p style=3D"font-size:12px;font-weight:400;margin:0;padding:0;l=
+ine-height:25px"><a target=3D"_blank" href=3D"http://help.163.com/special/0=
+0753VB9/126mail_adv_guide.html?id=3D4915" style=3D"color:#0747AC">=E6=9B=B4=
+=E5=A4=9A=E5=B8=AE=E5=8A=A9</a></p></td>
+=09=09=09<td width=3D"46"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td height=3D"40" colspan=3D"3"></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td colspan=3D"3"><table width=3D"606"  cellpadding=3D"0" cellspac=
+ing=3D"0" border=3D"0">
+=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td width=3D"46"></td>
+=09=09=09=09=09=09<td height=3D"24" style=3D"text-align:right;font-size:14p=
+x;">=E7=BD=91=E6=98=93=E9=82=AE=E4=BB=B6=E4=B8=AD=E5=BF=83</td>
+=09=09=09=09=09=09<td width=3D"46"></td>
+=09=09=09=09=09</tr>
+=09=09=09=09</table></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td height=3D"20" colspan=3D"3" background=3D"http://mimg.127.net/=
+xm/mail_res/common/bottom.jpg"></td>
+=09=09</tr>
+=09</tbody>
+</table>
+

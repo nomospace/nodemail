@@ -6,16 +6,16 @@ var emitter = new (require('events').EventEmitter)();
 
 var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
-var imap, mailObject = {msgs:[]};
+var imap, mailObject = {};
 
-emitter.once('response', function(res) {
+emitter.on('response', function(res) {
   mailObject.msgs = mailObject.msgs.reverse();
   res.json({
     status: 'success',
     data: mailObject
   });
   console.log('Done fetching all messages!');
-  imap.logout(cb);
+  // imap.logout(cb);
 });
 
 exports.index = function(req, res) {
@@ -75,18 +75,16 @@ function _fetch(results, res) {
       }
     });
 
-  console.log(msgLength);
-  
-  var fileStream, msgChunk = '';
+  console.log('total:', msgLength);
+
+  var fileStream, msgChunk = '', bufferHelper;
+  mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
-    // var fileName = 'msg-' + msg.seqno + '-raw.txt';
-    // console.log('Got message: ' + util.inspect(msg, true, 5));
-    // fileStream = fs.createWriteStream(fileName);
+    var fileName = 'msg-' + msg.seqno + '-raw.txt';
+    fileStream = fs.createWriteStream(fileName);
     msg.on('data', function(chunk) {
-      // console.log('Got message chunk of size ' + chunk.length);
-      // fileStream.write(util.inspect(msg.headers, true, 20) + chunk);
-      // fileStream.write(chunk);
+      fileStream.write(chunk);
       msgChunk = chunk;
     });
     msg.on('end', function() {
@@ -113,16 +111,15 @@ function _fetch(results, res) {
         // for (var i = 0, len = mail.length; i < len; i++) {
         //   mp.write(new Buffer([mail[i]]));
         // }
-        // mp.end();
 
-        // fs.createReadStream(fileName).pipe(mp);
+        fs.createReadStream(fileName).pipe(mp);
 
         // send the email source to the parser
-        mp.write(msgChunk);
-        mp.end();
+        // mp.write(msgChunk);
+        // mp.end();
       }
 
-      // fileStream.end();
+      fileStream.end();
     });
   });
 
