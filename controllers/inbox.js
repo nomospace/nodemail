@@ -1,8 +1,11 @@
 var util = require('util');
-var mailUtil = require('./mail-util');
+var mailUtil = require('../libs/mail-util');
+var cache = require('lru-cache')({
+  max: 100
+});
 var fs = require('fs');
 var MailParser = require('mailparser').MailParser;
-var emitter = new (require('events').EventEmitter)();
+var emitter = new(require('events').EventEmitter)();
 
 var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
@@ -77,15 +80,17 @@ function _fetch(results, res) {
 
   console.log('total:', msgLength);
 
-  var fileStream, msgChunk = '', bufferHelper;
+  var fileStream, msgChunk = '',
+    bufferHelper;
   mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
-    var fileName = 'msg-' + msg.seqno + '-raw.txt';
-    fileStream = fs.createWriteStream(fileName);
+    // var fileName = 'msg-' + msg.seqno + '-raw.txt';
+    // fileStream = fs.createWriteStream(fileName);
     msg.on('data', function(chunk) {
-      fileStream.write(chunk);
-      msgChunk = chunk;
+      // fileStream.write(chunk);
+      msgChunk += chunk;
+      cache.set(msg.seqno, msgChunk);
     });
     msg.on('end', function() {
       if (msgChunk) {
@@ -111,26 +116,28 @@ function _fetch(results, res) {
         // for (var i = 0, len = mail.length; i < len; i++) {
         //   mp.write(new Buffer([mail[i]]));
         // }
-
-        fs.createReadStream(fileName).pipe(mp);
+        
+        // fs.createReadStream(fileName).pipe(mp);
 
         // send the email source to the parser
-        // mp.write(msgChunk);
-        // mp.end();
+        // mp.write();
+        mp.end(cache.get(msg.seqno));
+
+        msgChunk = '';
       }
 
-      fileStream.end();
+      // fileStream.end();
     });
   });
 
   // fetch.on('end', function() {
-    // mailObject.msgs = mailObject.msgs.reverse();
-    // res.json({
-    //   status: 'success',
-    //   data: mailObject
-    // });
-    // console.log('Done fetching all messages!');
-    // imap.logout(cb);
+  // mailObject.msgs = mailObject.msgs.reverse();
+  // res.json({
+  //   status: 'success',
+  //   data: mailObject
+  // });
+  // console.log('Done fetching all messages!');
+  // imap.logout(cb);
   // });
 }
 
