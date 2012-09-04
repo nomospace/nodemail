@@ -22,11 +22,19 @@ emitter.on('response', function(res) {
 });
 
 exports.index = function(req, res) {
-  res.render('mail/inbox.html');
+  res.render('mail/list.html');
 }
 
 exports.getList = function(req, res) {
   _getMail(req, res);
+}
+
+exports.getById = function(req, res) {
+  var id = req.params.id;
+  if (id) {
+    res.local('data', req.session.msgs[id]);
+    res.render('mail/mail.html');
+  }
 }
 
 // exports.getBoxes = function(req, res) {
@@ -45,7 +53,7 @@ function _getMail(req, res) {
 
   mailUtil.setHandlers([
   _connect, _openBox, _search, function(results) {
-    _fetch(results, res);
+    _fetch(results, res, req);
   }]);
 
   cb();
@@ -68,7 +76,7 @@ function _search(results) {
   imap.search(['ALL', ['SINCE', 'August 28, 2012']], cb);
 }
 
-function _fetch(results, res) {
+function _fetch(results, res, req) {
   var msgLength = results.length,
     fetch = imap.fetch(results, {
       request: {
@@ -77,6 +85,8 @@ function _fetch(results, res) {
         // headers: ['from', 'to', 'subject', 'date']
       }
     });
+
+  req.session.msgs = {};
 
   console.log('total:', msgLength);
 
@@ -102,10 +112,13 @@ function _fetch(results, res) {
         //   headers = headers;
         // });
         mp.on("end", function(mail) {
-          mailObject.msgs.push({
+          var data = {
             'msg': msg,
             'mail': mail
-          });
+          };
+
+          req.session.msgs[msg.seqno] = data;
+          mailObject.msgs.push(data);
 
           if (msgLength == mailObject.msgs.length) {
             emitter.emit('response', res);
@@ -116,7 +129,7 @@ function _fetch(results, res) {
         // for (var i = 0, len = mail.length; i < len; i++) {
         //   mp.write(new Buffer([mail[i]]));
         // }
-        
+
         // fs.createReadStream(fileName).pipe(mp);
 
         // send the email source to the parser

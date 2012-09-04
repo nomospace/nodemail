@@ -22,7 +22,7 @@
         <!--p><strong>date: </strong>{{dateFormat date}}</p-->
         {{#headers}}
           <td>{{from}}</td>
-          <td>{{#each subject}}{{.}}{{/each}}</td>
+          <td><a href="/mail/inbox/{{../../msg/seqno}}">{{#each subject}}{{.}}{{/each}}</a></td>
           <td>{{dateFormat date}}</td>
           <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
           <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
@@ -34,7 +34,7 @@
           <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
         {{/headers}}
       </tr>
-      <tr><td colspan=3>{{{html}}}</td></tr>
+      <!--tr><td colspan=3>{{{html}}}</td></tr-->
       {{/mail}}
     {{/each}}
   </table>

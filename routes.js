@@ -18,6 +18,7 @@ module.exports = function(app) {
   app.post('/signin', sign.login);
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
+  app.get('/mail/inbox/:id', inbox.getById);
 
   // ajax
   app.get('/ajax/mail/inbox', inbox.getList);

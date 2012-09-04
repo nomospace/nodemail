@@ -100,3 +100,11 @@
 .main-body {
   margin-left: 240px;
 }
+
+.mail-page .btn-group {
+  float: left;
+}
+
+.mail-page .btn-groups {
+  margin-bottom: 10px;
+}

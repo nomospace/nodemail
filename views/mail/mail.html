@@ -1,0 +1,34 @@
+<%- partial('mail/side') %>
+
+<div class="main-body mail-page" id='J_content'>
+	<!-- <code><%=JSON.stringify(data)%></code> -->
+	<div class="btn-groups clearfix">
+		<div class="btn-group">
+      <button class="btn">回复 </button>
+		</div>
+		<div class="btn-group">
+      <button class="btn dropdown-toggle" data-toggle="dropdown">标记为 <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">已读邮件</a></li>
+        <li><a href="#">未读邮件</a></li>
+        <li><a href="#">已删除</a></li>
+        <li class="divider"></li>
+        <li><a href="#">垃圾邮件</a></li>
+      </ul>
+    </div>
+	</div>
+	<address>
+	  <div><strong>发件人：</strong><%=data.mail.headers.from%></div>
+	  <div><strong>时间：</strong><%=data.mail.headers.date%></div>
+	  <div><strong>收件人：</strong><%=data.mail.headers.to%></div>
+	</address>	
+  <div><%-data.mail.html%></div>
+</div>
+
+<script id="inbox_tpl" type="tpl/cache">
+  {{#messages}}
+	{{/messages}}
+	  <div><strong>发件人：</strong>{{from}}</div>
+  <div><strong>时间：</strong>{{date}}</div>
+</script>
+<script type="text/javascript" src="/javascripts/mail.js"></script>
