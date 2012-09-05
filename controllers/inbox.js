@@ -38,9 +38,19 @@ exports.getById = function(req, res) {
       'tag': 'index',
       'data': req.session.msgs[id]
     });
-    // res.local('tag', 'inbox');
-    // res.local('data', req.session.msgs[id]);
     res.render('mail/mail.html');
+  }
+}
+
+exports.getHtml = function(req, res) {
+  var id = req.params.id;
+  if (id) {
+    res.locals({
+      'html': req.session.msgs[id].mail.html
+    });
+    res.render('mail/content.html', {
+      layout: false
+    });
   }
 }
 

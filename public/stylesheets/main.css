@@ -118,3 +118,9 @@
   color: #333;
   text-decoration: none;
 }
+
+iframe {
+  width: 100%;
+  min-height: 400px;
+  border: 0 none;
+}
