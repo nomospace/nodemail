@@ -22,6 +22,7 @@ emitter.on('response', function(res) {
 });
 
 exports.index = function(req, res) {
+  res.local('tag', 'inbox');
   res.render('mail/list.html');
 }
 
@@ -32,7 +33,13 @@ exports.getList = function(req, res) {
 exports.getById = function(req, res) {
   var id = req.params.id;
   if (id) {
-    res.local('data', req.session.msgs[id]);
+    res.locals({
+      'id': id,
+      'tag': 'index',
+      'data': req.session.msgs[id]
+    });
+    // res.local('tag', 'inbox');
+    // res.local('data', req.session.msgs[id]);
     res.render('mail/mail.html');
   }
 }
@@ -119,6 +126,10 @@ function _fetch(results, res, req) {
 
           req.session.msgs[msg.seqno] = data;
           mailObject.msgs.push(data);
+
+          for (var i = 0; i < mail.attachments && mail.attachments.length; i++) {
+            console.log(mail.attachments[i].fileName);
+          }
 
           if (msgLength == mailObject.msgs.length) {
             emitter.emit('response', res);

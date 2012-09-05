@@ -2,6 +2,7 @@ var site = require('./controllers/site');
 var sign = require('./controllers/sign');
 var mail = require('./controllers/mail');
 var inbox = require('./controllers/inbox');
+var compose = require('./controllers/compose');
 
 var express = require('express');
 var path = require('path');
@@ -19,6 +20,7 @@ module.exports = function(app) {
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
   app.get('/mail/inbox/:id', inbox.getById);
+  app.get('/mail/inbox/:id/compose', compose.index);
 
   // ajax
   app.get('/ajax/mail/inbox', inbox.getList);

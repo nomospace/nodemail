@@ -106,5 +106,15 @@
 }
 
 .mail-page .btn-groups {
+  position: relative;
   margin-bottom: 10px;
+}
+
+.navbar {
+  z-index: 10;
+}
+
+.mail-page .btn a {
+  color: #333;
+  text-decoration: none;
 }
