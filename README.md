@@ -7,7 +7,8 @@ nodemail
 
 ###程序截图
 
-![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot.png)
+![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot1.png)  
+![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot2.png)	
 
 
 

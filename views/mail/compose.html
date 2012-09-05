@@ -21,10 +21,10 @@
 	  <div><span class="label">主 题</span><input type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
 	</div>
 	<textarea id="J_editor" style="display:none;">
+		<br><br><br><br>
 		在<%=moment(data.mail.headers.date).format('LLLL')%> <%=data.mail.headers.to%>写到：
 		<blockquote><%=data.mail.html%></blockquote>
 	</textarea>
-  <!-- <iframe src="/mail/inbox/<%=id%>/html"></iframe> -->
 </div>
 
 <script type="text/javascript" src="/libs/tiny-mce/tiny_mce_dev.js"></script>

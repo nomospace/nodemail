@@ -120,18 +120,29 @@
 }
 
 .mail-body {
-  line-height: 20px;
+  line-height: 26px;
 }
 
 .mail-body .label,.compose-body .label {
   display: inline-block;
+  line-height: 18px;
+  height: 18px;
   width: 50px;
   margin-right: 5px;
   text-align: center;
 }
 
-iframe {
+.mail-body .label {
+  vertical-align: middle;
+}
+
+.compose-body .label {
+  vertical-align: text-bottom;
+}
+
+.mceEditor iframe, .mail-body-iframe {
   width: 100%;
   min-height: 400px;
+  margin-top: 20px;
   border: 0 none;
 }

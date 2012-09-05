@@ -31,8 +31,13 @@
 	  <div><span class="label">发件人</span><%=data.mail.headers.from%></div>
 	  <div><span class="label">收件人</span><%=data.mail.headers.to%></div>
     <div><span class="label">时 间</span><%=moment(data.mail.headers.date).format('LLLL')%></div>
+    <!-- todo 注册 commen helper -->
+    <!-- todo 附件文本乱码问题 -->
+    <%if(data.mail.attachments&&data.mail.attachments.length){%>
+    <div><span class="label">附 件</span><%=data.mail.attachments.length%>个<%(data.mail.attachments.forEach(function(i){%> (<%=i.generatedFileName%> <%=i.length/1024%>k<%}))%>)</div>
+    <%}%>
 	</div>	
-  <iframe src="/mail/inbox/<%=id%>/html"></iframe>
+  <iframe src="/mail/inbox/<%=id%>/html" class="mail-body-iframe"></iframe>
 </div>
 
 <script type="text/javascript" src="/javascripts/mail.js"></script>
