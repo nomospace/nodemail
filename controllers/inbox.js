@@ -5,11 +5,14 @@ var cache = require('lru-cache')({
 });
 var fs = require('fs');
 var MailParser = require('mailparser').MailParser;
-var emitter = new(require('events').EventEmitter)();
+var moment = require('moment');
+var emitter = new (require('events').EventEmitter)();
 
 var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
 var imap, mailObject = {};
+
+moment.lang('zh-cn');
 
 emitter.on('response', function(res) {
   mailObject.msgs = mailObject.msgs.reverse();
@@ -36,6 +39,7 @@ exports.getById = function(req, res) {
     res.locals({
       'id': id,
       'tag': 'index',
+      'moment': moment,
       'data': req.session.msgs[id]
     });
     res.render('mail/mail.html');

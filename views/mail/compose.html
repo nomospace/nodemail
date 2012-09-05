@@ -12,14 +12,20 @@
       <button class="btn">预览 </button>
     </div>
     <div class="btn-group">
-      <button class="btn"><a href=".">取消</a></button>
+      <button class="btn"><a href="/mail/inbox/<%=id%>">取消</a></button>
     </div>
 	</div>
 	<div class="compose-body">
-	  <div><strong class="span1">主题：</strong><input type="text" class="span7" value="<%=data.mail.headers.date%>"></div>
-	  <div><strong class="span1">收件人：</strong><input type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
-	</div>	
-  <iframe src="/mail/inbox/<%=id%>/html"></iframe>
+	  <div><span class="label">发件人</span><input type="text" class="span7" value="<%=data.mail.headers.to%>"></div>
+	  <div><span class="label">收件人</span><input type="text" class="span7" value="<%=data.mail.headers.from%>"></div>
+	  <div><span class="label">主 题</span><input type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
+	</div>
+	<textarea id="J_editor" style="display:none;">
+		在<%=moment(data.mail.headers.date).format('LLLL')%> <%=data.mail.headers.to%>写到：
+		<blockquote><%=data.mail.html%></blockquote>
+	</textarea>
+  <!-- <iframe src="/mail/inbox/<%=id%>/html"></iframe> -->
 </div>
 
+<script type="text/javascript" src="/libs/tiny-mce/tiny_mce_dev.js"></script>
 <script type="text/javascript" src="/javascripts/mail.js"></script>
