@@ -12,10 +12,10 @@ module.exports = function(app) {
   var staticDir = path.join(__dirname, 'public');
   app.use(express.static(staticDir));
 
-  // 
+  // url routes
   app.get('/', site.index);
   app.get('/signin', sign.showLogin);
-  app.get('/signout', sign.signout)
+  app.get('/signout', sign.signout);
   app.post('/signin', sign.login);
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
@@ -26,12 +26,14 @@ module.exports = function(app) {
   // ajax
   app.get('/ajax/mail/inbox', inbox.getList);
   app.get('/ajax/mail/boxes', inbox.getBoxes);
+  app.post('/ajax/mail/send', compose.send);
 
   app.get('*', function(req, res) {
     res.render('index.html', {});
     // throw new NotFound;
   });
-}
+
+};
 
 function NotFound(msg) {
   this.name = 'NotFound';

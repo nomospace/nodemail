@@ -3,7 +3,7 @@
 <div class="main-body mail-page" id='J_content'>
 	<div class="btn-groups clearfix">
 		<div class="btn-group">
-      <button class="btn btn-primary">发送 </button>
+      <button id="J_send" class="btn btn-primary">发送 </button>
 		</div>
     <div class="btn-group">
       <button class="btn">存草稿 </button>
@@ -16,9 +16,9 @@
     </div>
 	</div>
 	<div class="compose-body">
-	  <div><span class="label">发件人</span><input type="text" class="span7" value="<%=data.mail.headers.to%>"></div>
-	  <div><span class="label">收件人</span><input type="text" class="span7" value="<%=data.mail.headers.from%>"></div>
-	  <div><span class="label">主 题</span><input type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
+	  <div><span class="label">发件人</span><span id="J_from" class="uneditable-input"><%=data.mail.headers.to%></span></div>
+	  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7" value="<%=data.mail.headers.from%>" data-value="<%=data.mail.from[0].address%>"></div>
+	  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
 	</div>
 	<textarea id="J_editor" style="display:none;">
 		<br><br><br><br>
