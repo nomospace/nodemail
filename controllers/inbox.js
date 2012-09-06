@@ -94,7 +94,7 @@ function _openBox() {
 
 function _search(results) {
   mailObject.messages = results.messages;
-  imap.search(['ALL', ['SINCE', 'August 28, 2012']], cb);
+  imap.search(['ALL', ['SINCE', moment().subtract('days', 7)]], cb);
 }
 
 function _fetch(results, res, req) {

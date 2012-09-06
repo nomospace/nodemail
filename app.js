@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var config = require('./config').config;
 var routes = require('./routes');
+var markdown = require('markdown-js');
 
 var app = express.createServer();
 
@@ -14,6 +15,16 @@ app.configure(function() {
   //  启用 View 缓存（在开发阶段被关闭）
   app.set('view cache', false);
   app.register('.html', require('ejs'));
+  app.register('.md', {
+    compile: function(str, options) {
+      var html = markdown.makeHtml(str);
+      return function(locals) {
+        return html.replace(/\{([^}]+)\}/g, function(_, name) {
+          return locals[name];
+        });
+      };
+    }
+  });
 
   app.use(express.bodyParser({}));
   app.use(express.cookieParser());

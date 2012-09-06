@@ -22,6 +22,8 @@ module.exports = function(app) {
   app.get('/mail/inbox/:id', inbox.getById);
   app.get('/mail/inbox/:id/html', inbox.getHtml);
   app.get('/mail/inbox/:id/compose', compose.index);
+  app.get('/mail/compose', compose.index);
+
 
   // ajax
   app.get('/ajax/mail/inbox', inbox.getList);

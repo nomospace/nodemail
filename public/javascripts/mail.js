@@ -18,17 +18,24 @@ $(function() {
   }
 
   // 发送
-  var $send = $('#J_send'),
+  var $composeBody = $('#J_compose_body'),
+    $send = $('#J_send'),
     $to = $('#J_to'),
     $from = $('#J_from'),
     $subject = $('#J_subject');
   // $text = $('#J_text'),
   // $html = $('#J_html');
   $send.click(function() {
-    var html = tinyMCE.get(editor).getContent();
+    var html = tinyMCE.get(editor).getContent(),
+      from;
+    if ($composeBody.data('reply')) {
+      from = $from.html();
+    } else {
+      from = $from.val();
+    }
     $.post('/ajax/mail/send', {
       'to': $to.val() || $to.data('value'),
-      'from': $from.html() || $from.data('value'),
+      'from': from,
       'subject': $subject.val(),
       'text': $(html).text(),
       'html': html

@@ -12,6 +12,14 @@ exports.index = function(req, res) {
       'data': req.session.msgs[id]
     });
     res.render('mail/compose.html');
+  } else {
+    res.locals({
+      'id': '',
+      'tag': '',
+      'moment': '',
+      'data': ''
+    });
+    res.render('mail/compose.html');
   }
 };
 
@@ -22,7 +30,6 @@ exports.send = function(req, res) {
   // bug https://github.com/andris9/mailcomposer/issues/6
   // see https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x
   // bugunfixed https://github.com/mscdex/node-imap/issues/88
-
   // console.log(req.body);
   var body = req.body,
     transport = mailUtil.createTransport(req),
@@ -33,6 +40,8 @@ exports.send = function(req, res) {
       'text': body.text,
       'html': body.html
     };
+
+  console.log(body);
 
   transport.sendMail(options, function(error) {
     if (error) {

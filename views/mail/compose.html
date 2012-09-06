@@ -15,15 +15,24 @@
       <button class="btn"><a href="/mail/inbox/<%=id%>">取消</a></button>
     </div>
 	</div>
-	<div class="compose-body">
-	  <div><span class="label">发件人</span><span id="J_from" class="uneditable-input"><%=data.mail.headers.to%></span></div>
-	  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7" value="<%=data.mail.headers.from%>" data-value="<%=data.mail.from[0].address%>"></div>
-	  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
+	<div id="J_compose_body" class="compose-body" data-reply="<%=!!data%>">
+		<%if(data){%>
+		  <div><span class="label">发件人</span><span id="J_from" class="uneditable-input"><%=data.mail.headers.to%></span></div>
+		  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7" value="<%=data.mail.headers.from%>" data-value="<%=data.mail.from[0].address%>"></div>
+		  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
+	  <%}else{%>
+		  <div><span class="label">发件人</span><input id="J_from" type="text" class="span7"></div>
+		  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7"></div>
+		  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7"></div>
+	  <%}%>
 	</div>
 	<textarea id="J_editor" style="display:none;">
+		<%if(data){%>
 		<br><br><br><br>
 		在<%=moment(data.mail.headers.date).format('LLLL')%> <%=data.mail.headers.to%>写到：
 		<blockquote><%=data.mail.html%></blockquote>
+	  <%}else{%>
+	  <%}%>
 	</textarea>
 </div>
 

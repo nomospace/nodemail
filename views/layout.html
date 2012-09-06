@@ -33,12 +33,12 @@
     <div class='navbar'>
       <div class='navbar-inner'>
         <div class='container'>
-          <a class='brand' href='/'><%- config.site_logo || config.name %></a>
+          <a class='brand' href='/mail'><%- config.site_logo || config.name %></a>
           <form id='search_form' class='navbar-search' action="/" style="display: none;">
             <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>'/>
           </form>
           <ul class='nav pull-right'>
-            <li><a href='/'>首页</a></li> 
+            <li><a href='/mail'>首页</a></li> 
             <%
             var site_navs = config.site_navs || [];
             for (var i = 0, l = site_navs.length; i < l; i++) {

@@ -7,7 +7,7 @@
 }
 
 .bs-docs-sidenav {
-  width: 228px;
+  width: 120px;
   margin: 30px 0 0;
   padding: 0;
   background-color: #fff;
@@ -98,7 +98,7 @@
 }
 
 .main-body {
-  margin-left: 240px;
+  margin-left: 140px;
 }
 
 .mail-page .btn-group {
@@ -146,3 +146,17 @@
   margin-top: 20px;
   border: 0 none;
 }
+
+.mail-comp {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.mail-comp a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mail-comp .btn-large:first-child {
+  margin-right: 10px;
+} 

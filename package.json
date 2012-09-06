@@ -1,6 +1,6 @@
 {
   "name": "nodemail",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "another node-app",
   "main": "app.js",
   "dependencies": {
@@ -11,7 +11,8 @@
     "mailparser": "~0.2.28",
     "moment": "~1.7.0",
     "nodemailer": "~0.3.25",
-    "validator": "~0.4.11"
+    "validator": "~0.4.11",
+    "markdown-js": "0.0.3"
   },
   "devDependencies": {},
   "scripts": {

@@ -34,10 +34,12 @@ exports.isFunction = function(obj) {
 };
 
 exports.createTransport = function(req) {
-  var user = req.session.user,
-    name = user.name,
+  var user = req.session.user;
+  if (!user) return;
+  
+  var name = user.name,
     pass = user.pass;
-    
+
   return nodemailer.createTransport('SMTP', {
     // service: "Gmail",
     host: 'smtp.163.com',
