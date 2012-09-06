@@ -4,6 +4,13 @@ nodemail
 使用 nodejs 实现简易版邮箱
 
 
+###安装
+
+```
+npm install nodemail
+```
+
+
 
 ###程序截图
 
@@ -11,12 +18,6 @@ nodemail
 ![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot2.png)	
 
 
-
-###安装
-
-```
-npm install nodemailer imap ejs express validator mailparser
-```
 
 
 ###相关链接
