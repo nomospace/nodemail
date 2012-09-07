@@ -25,8 +25,12 @@ emitter.on('response', function(res) {
 });
 
 exports.index = function(req, res) {
-  res.local('tag', 'inbox');
-  res.render('mail/list.html');
+  if (req.session.user) {
+    res.local('tag', 'inbox');
+    res.render('mail/list.html');
+  } else {
+    res.render('sign/signin.html');
+  }
 }
 
 exports.getList = function(req, res) {
@@ -69,7 +73,7 @@ function _getMail(req, res) {
   if (!user) return;
 
   if (!imap) {
-    imap = mailUtil.connection(user);
+    req.session.imap = imap = mailUtil.connection(user);
   }
 
   mailUtil.setHandlers([
@@ -94,7 +98,7 @@ function _openBox() {
 
 function _search(results) {
   mailObject.messages = results.messages;
-  imap.search(['ALL', ['SINCE', moment().subtract('days', 7)]], cb);
+  imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 2)]], cb);
 }
 
 function _fetch(results, res, req) {

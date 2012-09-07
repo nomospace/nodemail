@@ -35,6 +35,10 @@ app.configure(function() {
   app.use(require('./controllers/sign').authUser);
 });
 
+app.error(function(err, req, res) {
+  console.log(err);
+});
+
 // set static, dynamic helpers
 // 为 layout.html 绑定数据
 app.helpers({

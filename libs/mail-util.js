@@ -55,5 +55,5 @@ exports.createTransport = function(req) {
 
 function die(err) {
   console.log('Uh oh: ' + err);
-  process.exit(1);
+  // process.exit(1);
 }

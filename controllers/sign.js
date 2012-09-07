@@ -26,6 +26,7 @@ exports.login = function(req, res, next) {
 }
 
 exports.signout = function(req, res, next) {
+  req.session.imap.logout();
   req.session.destroy();
   res.clearCookie(config.authCookieName, {
     path: '/'

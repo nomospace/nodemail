@@ -73,6 +73,11 @@
 }
 
 /* 自定义 */
+
+body {
+  /*background: url(/images/bg.png) repeat;*/
+}
+
 .bs-docs-sidebar {
   position: fixed;
 	margin: 0;
