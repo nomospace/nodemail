@@ -20,13 +20,13 @@ emitter.on('response', function(res) {
     status: 'success',
     data: mailObject
   });
-  console.log('Done fetching all messages!');
-  // imap.logout(cb);
+console.log('Done fetching all messages!');
+// imap.logout(cb);
 });
 
 exports.index = function(req, res) {
   if (req.session.user) {
-    res.local('tag', 'inbox');
+    res.locals.tag = 'inbox';
     res.render('mail/list.html');
   } else {
     res.render('sign/signin.html');
@@ -78,7 +78,7 @@ function _getMail(req, res) {
 
   mailUtil.setHandlers([
   _connect, _openBox, _search, function(results) {
-    _fetch(results, res, req);
+    _fetch(results, req, res);
   }]);
 
   cb();
@@ -101,7 +101,7 @@ function _search(results) {
   imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 2)]], cb);
 }
 
-function _fetch(results, res, req) {
+function _fetch(results, req, res) {
   var msgLength = results.length,
     fetch = imap.fetch(results, {
       request: {

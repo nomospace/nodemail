@@ -20,13 +20,15 @@ exports.login = function(req, res, next) {
   genSession(user, res);
 
   req.session.user = user;
-  res.local('currentUser', req.session.user);
+  res.locals({'currentUser': req.session.user});
 
   res.redirect('/mail');
 }
 
 exports.signout = function(req, res, next) {
-  req.session.imap.logout();
+  if (req.session.imap) {
+    req.session.imap.logout();
+  }
   req.session.destroy();
   res.clearCookie(config.authCookieName, {
     path: '/'
@@ -36,7 +38,7 @@ exports.signout = function(req, res, next) {
 
 exports.authUser = function(req, res, next) {
   if (req.session.user) {
-    res.local('currentUser', req.session.user);
+    res.locals({'currentUser': req.session.user});
   }
   return next();
 }

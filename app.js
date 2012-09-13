@@ -3,8 +3,9 @@ var express = require('express');
 var config = require('./config').config;
 var routes = require('./routes');
 var markdown = require('markdown-js');
+var partials = require('express-partials');
 
-var app = express.createServer();
+var app = express();
 
 app.configure(function() {
   var viewsRoot = path.join(__dirname, 'views');
@@ -14,17 +15,30 @@ app.configure(function() {
   app.set('views engine', 'html');
   //  启用 View 缓存（在开发阶段被关闭）
   app.set('view cache', false);
-  app.register('.html', require('ejs'));
-  app.register('.md', {
-    compile: function(str, options) {
+  app.engine('html', require('ejs').renderFile);
+  app.engine('md', function(path, options, fn) {
+    fs.readFile(path, 'utf8', function(err, str) {
+      if (err) return fn(err);
+      // str = markdown.parse(str).toString();
       var html = markdown.makeHtml(str);
       return function(locals) {
         return html.replace(/\{([^}]+)\}/g, function(_, name) {
           return locals[name];
         });
       };
-    }
+      // fn(null, str);
+    });
   });
+  // app.engine('.md', {
+  //   compile: function(str, options) {
+  //     var html = markdown.makeHtml(str);
+  //     return function(locals) {
+  //       return html.replace(/\{([^}]+)\}/g, function(_, name) {
+  //         return locals[name];
+  //       });
+  //     };
+  //   }
+  // });
 
   app.use(express.bodyParser({}));
   app.use(express.cookieParser());
@@ -33,18 +47,21 @@ app.configure(function() {
   }));
   // custom middleware
   app.use(require('./controllers/sign').authUser);
+  // load the express-partials middleware
+  app.use(partials());
+
 });
 
-app.error(function(err, req, res) {
-  console.log(err);
-});
+// app.error(function(err, req, res) {
+//   console.log(err);
+// });
 
 // set static, dynamic helpers
 // 为 layout.html 绑定数据
-app.helpers({
+app.locals({
   config: config
 });
-app.dynamicHelpers({
+app.locals({
   csrf: function(req, res) {
     // todo csrf -> undefined
     return req.session ? req.session._csrf : '';
