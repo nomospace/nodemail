@@ -18,6 +18,7 @@ moment.lang('zh-cn');
 
 emitter.on('response', function(res) {
   mailObject.msgs = mailObject.msgs.reverse();
+  // res.contentType('json');
   res.json({
     status: 'success',
     data: mailObject
@@ -81,6 +82,7 @@ function _getMail(req, res) {
 
   mailUtil.setHandlers([
   _connect, _openBox, _search, function(results) {
+    // buggy
     _fetch(results, req, res);
   }]);
 
@@ -139,7 +141,7 @@ function _fetch(results, req, res) {
         // mp.on('headers', function(headers){
         //   headers = headers;
         // });
-        mp.on("end", functiozn(mail) {
+        mp.on('end', function(mail) {
           var data = {
             'msg': msg,
             'mail': mail
