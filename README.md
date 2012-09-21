@@ -7,7 +7,9 @@ nodemail ![Build Status](https://secure.travis-ci.org/fredwu/skinny-coffee-machi
 ## Install
 
 ```sh
-$ npm install nodemail
+$ npm install nodemail  
+$ cd nodemail  
+$ node app.js
 ```
 
 
@@ -17,10 +19,12 @@ $ npm install nodemail
 ![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot1.png)  
 ![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot2.png)	
 
+## Testing
+
+todo
 
 
-
-## Links
+## Reference
 [nodeMailer](https://github.com/andris9/Nodemailer)  
 [node-imap](https://github.com/mscdex/node-imap)  
 [simplesmtp](https://github.com/andris9/simplesmtp)  
@@ -33,7 +37,7 @@ $ npm install nodemail
 
 (The MIT License)
 
-Copyright (c) 2012 nomospace <jinlu_hz@163.com>.
+Copyright (c) 2012 sdg-sysdev
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
