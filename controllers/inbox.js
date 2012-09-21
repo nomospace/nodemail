@@ -12,6 +12,8 @@ var cb = mailUtil.cb;
 var isFunction = mailUtil.isFunction;
 var imap, mailObject = {};
 
+var base = this;
+
 moment.lang('zh-cn');
 
 emitter.on('response', function(res) {
@@ -20,7 +22,7 @@ emitter.on('response', function(res) {
     status: 'success',
     data: mailObject
   });
-console.log('Done fetching all messages!');
+  console.log('Done fetching all messages!');
 // imap.logout(cb);
 });
 
@@ -34,6 +36,7 @@ exports.index = function(req, res) {
 }
 
 exports.getList = function(req, res) {
+  // res.send(JSON.stringify({response:'11json'}));
   _getMail(req, res);
 }
 
@@ -136,7 +139,7 @@ function _fetch(results, req, res) {
         // mp.on('headers', function(headers){
         //   headers = headers;
         // });
-        mp.on("end", function(mail) {
+        mp.on("end", functiozn(mail) {
           var data = {
             'msg': msg,
             'mail': mail
@@ -145,15 +148,15 @@ function _fetch(results, req, res) {
           req.session.msgs[msg.seqno] = data;
           mailObject.msgs.push(data);
 
-          for (var i = 0; i < mail.attachments && mail.attachments.length; i++) {
-            console.log(mail.attachments[i].fileName);
-          }
+          // for (var i = 0; i < mail.attachments && mail.attachments.length; i++) {
+          //   console.log(mail.attachments[i].fileName);
+          // }
 
           if (msgLength == mailObject.msgs.length) {
             emitter.emit('response', res);
           }
         });
-
+        
         // var mail = new Buffer(msgChunk, 'utf-8');
         // for (var i = 0, len = mail.length; i < len; i++) {
         //   mp.write(new Buffer([mail[i]]));
