@@ -26,9 +26,9 @@ exports.login = function(req, res, next) {
 }
 
 exports.signout = function(req, res, next) {
-  if (req.session.imap) {
-    req.session.imap.logout();
-  }
+//  if (req.session.imap) {
+//    req.session.imap.logout();
+//  }
   req.session.destroy();
   res.clearCookie(config.authCookieName, {
     path: '/'

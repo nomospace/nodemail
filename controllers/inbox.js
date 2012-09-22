@@ -1,24 +1,18 @@
 var util = require('util');
 var mailUtil = require('../libs/mail-util');
-var cache = require('lru-cache')({
-  max: 100
-});
+var cache = require('lru-cache')({max: 100});
 var fs = require('fs');
 var MailParser = require('mailparser').MailParser;
 var moment = require('moment');
 var emitter = new (require('events').EventEmitter)();
 
 var cb = mailUtil.cb;
-var isFunction = mailUtil.isFunction;
 var imap, mailObject = {};
-
-var base = this;
 
 moment.lang('zh-cn');
 
 emitter.on('response', function(res) {
   mailObject.msgs = mailObject.msgs.reverse();
-  // res.contentType('json');
   res.json({
     status: 'success',
     data: mailObject
@@ -77,14 +71,14 @@ function _getMail(req, res) {
   if (!user) return;
 
   if (!imap) {
-    req.session.imap = imap = mailUtil.connection(user);
+    /*req.session.imap =*/
+    imap = mailUtil.connection(user);
   }
 
   mailUtil.setHandlers([
-  _connect, _openBox, _search, function(results) {
-    // buggy
-    _fetch(results, req, res);
-  }]);
+    _connect, _openBox, _search, function(results) {
+      _fetch(results, req, res);
+    }]);
 
   cb();
 }
@@ -120,8 +114,7 @@ function _fetch(results, req, res) {
 
   console.log('total:', msgLength);
 
-  var fileStream, msgChunk = '',
-    bufferHelper;
+  var msgChunk = '';
   mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
@@ -158,7 +151,7 @@ function _fetch(results, req, res) {
             emitter.emit('response', res);
           }
         });
-        
+
         // var mail = new Buffer(msgChunk, 'utf-8');
         // for (var i = 0, len = mail.length; i < len; i++) {
         //   mp.write(new Buffer([mail[i]]));
@@ -176,23 +169,4 @@ function _fetch(results, req, res) {
       // fileStream.end();
     });
   });
-
-  // fetch.on('end', function() {
-  // mailObject.msgs = mailObject.msgs.reverse();
-  // res.json({
-  //   status: 'success',
-  //   data: mailObject
-  // });
-  // console.log('Done fetching all messages!');
-  // imap.logout(cb);
-  // });
 }
-
-// function _getBoxes(req, res) {
-//   imap.getBoxes(function(err, results) {
-//     res.json({
-//       status: 'success',
-//       data: results
-//     });
-//   });
-// }
