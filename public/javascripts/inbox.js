@@ -3,12 +3,13 @@ $(function() {
   'use strict';
 
   var inboxTpl = $('#inbox_tpl').html();
+  var sideItemTpl = $('#side_item_tpl').html();
 
   function _getInbox() {
     $.getJSON('/ajax/mail/inbox').done(function(result) {
       console.log(result);
-      var tpl = Handlebars.compile(inboxTpl),
-        context = result.data;
+
+      var context = result.data;
 
       Handlebars.registerHelper('dateFormat', function(date) {
         return moment(date).format('LL');
@@ -17,8 +18,9 @@ $(function() {
       //   return this.from[0].slice(this.from[0].indexOf('<') + 1, this.from[0].indexOf('>'));
       // });
 
+      $('#J_content').html(Handlebars.compile(inboxTpl)(context));
 
-      $('#J_content').html(tpl(context));
+      $('#J_side_list').append(Handlebars.compile(sideItemTpl)(context));
     });
   }
 

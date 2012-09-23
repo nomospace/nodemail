@@ -11,7 +11,7 @@ var imap, mailObject = {};
 
 moment.lang('zh-cn');
 
-emitter.on('response', function(res) {
+emitter.on('messages', function(res) {
   mailObject.msgs = mailObject.msgs.reverse();
   res.json({
     status: 'success',
@@ -20,6 +20,11 @@ emitter.on('response', function(res) {
   console.log('Done fetching all messages!');
 // imap.logout(cb);
 });
+
+//emitter.on('boxes', function(res, boxes) {
+//  res.json(boxes);
+//  console.log('Done fetching all boxes!');
+//});
 
 exports.index = function(req, res) {
   if (req.session.user) {
@@ -54,17 +59,9 @@ exports.getHtml = function(req, res) {
     res.locals({
       'html': req.session.msgs[id].mail.html
     });
-    res.render('mail/content.html', {
-      layout: false
-    });
+    res.render('mail/content.html', {layout: false});
   }
 }
-
-// exports.getBoxes = function(req, res) {
-//   _connect(function() {
-//     _getBoxes(req, res);
-//   });
-// }
 
 function _getMail(req, res) {
   var user = req.session.user;
@@ -76,19 +73,45 @@ function _getMail(req, res) {
   }
 
   mailUtil.setHandlers([
-    _connect, _openBox, _search, function(results) {
+    _connect,
+    _getBoxes,
+    _openBox,
+    _search,
+    function(results) {
       _fetch(results, req, res);
-    }]);
+    }
+  ]);
 
   cb();
 }
 
-function _connect(fn) {
+function _connect(/*fn*/) {
   imap.connect(cb);
   // imap.connect(function(err, results) {
   //   cb(err, results);
   //   isFunction(fn) && fn();
   // });
+}
+
+function _getBoxes() {
+  // cpu 高负荷 ?
+  if (!cache.get('boxes1') || !cache.get('boxes').length) {
+    imap.getBoxes(function(err, boxes) {
+      cache.set('boxes', boxes);
+      if (err) throw err;
+      mailObject.boxes = [];
+//      console.log(boxes);
+      for (var key in boxes) {
+        key && mailObject.boxes.push(key);
+//        console.log('status: ' + key);
+//        imap.status(key, function(err, box) {
+//          console.log(key, err, box);
+//        });
+      }
+      cb();
+    });
+  }
+
 }
 
 function _openBox() {
@@ -97,7 +120,7 @@ function _openBox() {
 
 function _search(results) {
   mailObject.messages = results.messages;
-  imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 2)]], cb);
+  imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 1)]], cb);
 }
 
 function _fetch(results, req, res) {
@@ -148,7 +171,7 @@ function _fetch(results, req, res) {
           // }
 
           if (msgLength == mailObject.msgs.length) {
-            emitter.emit('response', res);
+            emitter.emit('messages', res);
           }
         });
 

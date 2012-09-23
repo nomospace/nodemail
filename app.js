@@ -2,13 +2,14 @@ var path = require('path');
 var express = require('express');
 var config = require('./config').config;
 var routes = require('./routes');
-//var markdown = require('markdown-js');
+var markdown = require('markdown-js');
 var partials = require('express-partials');
 var ejs = require('ejs');
+var fs = require('fs');
 
 var app = express();
 
-app.configure(function() {
+app.configure('development', function() {
   var viewsRoot = path.join(__dirname, 'views');
   // View 默认的根目录为 viewsRoot 的值
   app.set('views', viewsRoot);
@@ -17,29 +18,15 @@ app.configure(function() {
   //  启用 View 缓存（在开发阶段被关闭）
   app.set('view cache', false);
   app.engine('html', ejs.renderFile);
-//  app.engine('md', function(path, options, fn) {
-//    fs.readFile(path, 'utf8', function(err, str) {
-//      if (err) return fn(err);
-//      // str = markdown.parse(str).toString();
-//      var html = markdown.makeHtml(str);
-//      return function(locals) {
-//        return html.replace(/\{([^}]+)\}/g, function(_, name) {
-//          return locals[name];
-//        });
-//      };
-//      // fn(null, str);
-//    });
-//  });
-  // app.engine('.md', {
-  //   compile: function(str, options) {
-  //     var html = markdown.makeHtml(str);
-  //     return function(locals) {
-  //       return html.replace(/\{([^}]+)\}/g, function(_, name) {
-  //         return locals[name];
-  //       });
-  //     };
-  //   }
-  // });
+
+  app.engine('md', function(path, options, fn) {
+    console.log(path);
+    fs.readFile(path, 'utf8', function(err, str) {
+      if (err) return fn(err);
+      str = markdown.parse(str).toString();
+      fn(null, str);
+    });
+  });
 
   app.use(express.bodyParser({}));
   app.use(express.cookieParser());
