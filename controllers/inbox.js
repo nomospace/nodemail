@@ -6,6 +6,9 @@ var MailParser = require('mailparser').MailParser;
 var moment = require('moment');
 var emitter = new (require('events').EventEmitter)();
 
+var models = require('../models');
+var Mail = models.Mail;
+
 var cb = mailUtil.cb;
 var imap, mailObject = {};
 
@@ -137,6 +140,7 @@ function _fetch(results, req, res) {
       }
     });
 
+  // TODO req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
   req.session.msgs = {};
 
   console.log('total:', msgLength);

@@ -14,7 +14,8 @@
     "markdown-js": "~0.0.3",
     "moment": "~1.7.0",
     "nodemailer": "~0.3.27",
-    "validator": "~0.4.11"
+    "validator": "~0.4.11",
+    "mongoose": "~3.1.2"
   },
   "devDependencies": {},
   "scripts": {
