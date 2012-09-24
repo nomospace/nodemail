@@ -164,4 +164,12 @@ body {
 
 .mail-comp .btn-large:first-child {
   margin-right: 10px;
-} 
+}
+
+.side-folders {
+  margin-top: 10px;
+}
+
+.side-folders .dropdown-toggle {
+  width: 120px;
+}

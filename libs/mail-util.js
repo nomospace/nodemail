@@ -23,7 +23,7 @@ exports.connection = function(user) {
   return new ImapConnection({
     username: user.name,
     password: user.pass,
-    host: 'imap.gmail.com',
+    host: 'imap.163.com',
     port: 993,
     secure: true
   });

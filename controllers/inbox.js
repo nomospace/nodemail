@@ -38,20 +38,25 @@ exports.index = function(req, res) {
 exports.getList = function(req, res) {
   // res.send(JSON.stringify({response:'11json'}));
   _getMail(req, res);
-}
+};
 
 exports.getById = function(req, res) {
   var id = req.params.id;
   if (id) {
-    res.locals({
-      'id': id,
-      'tag': 'index',
-      'moment': moment,
-      'data': req.session.msgs[id]
-    });
-    res.render('mail/mail.html');
+    try {
+      res.locals({
+        'id': id,
+        'tag': 'index',
+        'moment': moment,
+        'data': req.session.msgs[id]
+      });
+      res.render('mail/mail.html');
+    } catch (e) {
+      res.locals.tag = '';
+      res.render('mail/index.html');
+    }
   }
-}
+};
 
 exports.getHtml = function(req, res) {
   var id = req.params.id;
@@ -111,7 +116,6 @@ function _getBoxes() {
       cb();
     });
   }
-
 }
 
 function _openBox() {

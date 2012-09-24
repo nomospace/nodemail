@@ -20,7 +20,7 @@ $(function() {
 
       $('#J_content').html(Handlebars.compile(inboxTpl)(context));
 
-      $('#J_side_list').append(Handlebars.compile(sideItemTpl)(context));
+      $('#J_side_list').html(Handlebars.compile(sideItemTpl)(context));
     });
   }
 

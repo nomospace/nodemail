@@ -3,18 +3,26 @@
 	  <button class="btn">收 信</button>
 	  <button class="btn"><a href="/mail/compose">写 信</a></button>
 	</div>
-  <ul id="J_side_list" class="nav nav-list bs-docs-sidenav">
+  <ul class="nav nav-list bs-docs-sidenav">
     <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/inbox"><i class="icon-chevron-right"></i> 收件箱</a></li>
-    <li><a href="/mail/star"><i class="icon-chevron-right"></i> 星标邮件</a></li>
+    <!--<li><a href="/mail/star"><i class="icon-chevron-right"></i> 星标邮件</a></li>-->
     <li><a href="/mail/draft"><i class="icon-chevron-right"></i> 草稿箱</a></li>
     <li><a href="/mail/sent"><i class="icon-chevron-right"></i> 已发送</a></li>
     <li><a href="/mail/deleted"><i class="icon-chevron-right"></i> 已删除</a></li>
     <li><a href="/mail/trash"><i class="icon-chevron-right"></i> 垃圾箱</a></li>
   </ul>
+  <%if(tag=='inbox'){%>
+  <div class="side-folders btn-group">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">其他文件夹 <span class="caret"></span></button>
+    <ul id="J_side_list" class="dropdown-menu">
+      <li><a>加载中</a></li>
+    </ul>
+  </div>
+  <%}%>
 </div>
 <script id="side_item_tpl" type="tpl/cache">
   {{#boxes}}
-  <li><a href="/mail/module/{{.}}"><i class="icon-chevron-right"></i> {{.}}</a></li>
+  <li><a href="/mail/module/{{.}}">{{.}}</a></li>
   {{/boxes}}
 </script>
 <script src="/libs/iframe-autoheight/jquery.iframe-auto-height.plugin.1.7.1.js" type="text/javascript"></script>
