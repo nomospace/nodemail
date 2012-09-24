@@ -38,22 +38,22 @@ exports.index = function(req, res) {
   }
 }
 
-exports.getList = function(req, res) {
+exports.getList = function(req, res, next) {
   // res.send(JSON.stringify({response:'11json'}));
-  _getMail(req, res);
+  _getMail(req, res, next);
 };
 
 exports.getById = function(req, res) {
   var id = req.params.id;
   if (id) {
     try {
-      res.locals({
-        'id': id,
-        'tag': 'index',
-        'moment': moment,
-        'data': req.session.msgs[id]
-      });
-      res.render('mail/mail.html');
+//      res.locals({
+//        'id': id,
+//        'tag': 'index',
+//        'moment': moment,
+//        'data': req.session.msgs[id]
+//      });
+//      res.render('mail/mail.html');
     } catch (e) {
       res.locals.tag = '';
       res.render('mail/index.html');
@@ -64,14 +64,14 @@ exports.getById = function(req, res) {
 exports.getHtml = function(req, res) {
   var id = req.params.id;
   if (id) {
-    res.locals({
-      'html': req.session.msgs[id].mail.html
-    });
+//    res.locals({
+//      'html': req.session.msgs[id].mail.html
+//    });
     res.render('mail/content.html', {layout: false});
   }
 }
 
-function _getMail(req, res) {
+function _getMail(req, res, next) {
   var user = req.session.user;
   if (!user) return;
 
@@ -86,7 +86,7 @@ function _getMail(req, res) {
     _openBox,
     _search,
     function(results) {
-      _fetch(results, req, res);
+      _fetch(results, req, res, next);
     }
   ]);
 
@@ -130,7 +130,7 @@ function _search(results) {
   imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 1)]], cb);
 }
 
-function _fetch(results, req, res) {
+function _fetch(results, req, res, next) {
   var msgLength = results.length,
     fetch = imap.fetch(results, {
       request: {
@@ -141,7 +141,8 @@ function _fetch(results, req, res) {
     });
 
   // TODO req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
-  req.session.msgs = {};
+//  req.session.msgs = {};
+  var msgs = {};
 
   console.log('total:', msgLength);
 
@@ -171,8 +172,25 @@ function _fetch(results, req, res) {
             'mail': mail
           };
 
-          req.session.msgs[msg.seqno] = data;
+          msgs[msg.seqno] = data;
           mailObject.msgs.push(data);
+
+          // 持久化至本地数据库
+          (function(data) {
+            var seqno = msg.seqno;
+            Mail.findOne({seqno: seqno}, function(err, mi) {
+              if (err) return next(err);
+              if (!mi) {
+                var mailInstance = new Mail();
+                console.log('save');
+                mailInstance.seqno = seqno;
+                mailInstance.data = data;
+                mailInstance.save(function(err) {
+                  if (err) return next(err);
+                });
+              }
+            });
+          })(data);
 
           // for (var i = 0; i < mail.attachments && mail.attachments.length; i++) {
           //   console.log(mail.attachments[i].fileName);

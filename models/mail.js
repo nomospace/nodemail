@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 
 var MailSchema = new Schema({
-  name: {type: String},
-  body: {type: Object},
-  description: {type: String},
+  seqno: {type: String},
+  data: {type: Object},
   createAt: {type: Date, default: Date.now}
 });
 
