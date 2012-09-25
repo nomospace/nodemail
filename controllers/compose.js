@@ -1,22 +1,19 @@
 var moment = require('moment');
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 var mailUtil = require('../libs/mail-util');
 
 exports.index = function(req, res) {
   var id = req.params.id;
   if (id) {
-    try {
+    mailUtil.getMailById(id, function(mail) {
       res.locals({
         'id': id,
         'tag': 'inbox',
         'moment': moment,
-        'data': req.session.msgs[id]
+        'data': mail.data
       });
       res.render('mail/compose.html');
-    } catch (e) {
-      res.locals.tag = '';
-      res.render('mail/index.html');
-    }
+    });
   } else {
     res.locals({
       'id': '',

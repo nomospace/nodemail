@@ -6,9 +6,6 @@ var MailParser = require('mailparser').MailParser;
 var moment = require('moment');
 var emitter = new (require('events').EventEmitter)();
 
-var models = require('../models');
-var Mail = models.Mail;
-
 var cb = mailUtil.cb;
 var imap, mailObject = {};
 
@@ -36,7 +33,7 @@ exports.index = function(req, res) {
   } else {
     res.render('sign/signin.html');
   }
-}
+};
 
 exports.getList = function(req, res, next) {
   // res.send(JSON.stringify({response:'11json'}));
@@ -46,28 +43,28 @@ exports.getList = function(req, res, next) {
 exports.getById = function(req, res) {
   var id = req.params.id;
   if (id) {
-    try {
-//      res.locals({
-//        'id': id,
-//        'tag': 'index',
-//        'moment': moment,
-//        'data': req.session.msgs[id]
-//      });
-//      res.render('mail/mail.html');
-    } catch (e) {
-      res.locals.tag = '';
-      res.render('mail/index.html');
-    }
+    mailUtil.getMailById(id, function(mail) {
+      res.locals({
+        'id': id,
+        'tag': 'index',
+        'moment': moment,
+        'data': mail.data
+      });
+      res.render('mail/mail.html');
+    });
+  } else {
+    res.locals.tag = '';
+    res.render('mail/index.html');
   }
 };
 
 exports.getHtml = function(req, res) {
   var id = req.params.id;
   if (id) {
-//    res.locals({
-//      'html': req.session.msgs[id].mail.html
-//    });
-    res.render('mail/content.html', {layout: false});
+    mailUtil.getMailById(id, function(mail) {
+      res.locals({'html': mail.data.mail.html});
+      res.render('mail/content.html', {layout: false});
+    });
   }
 }
 
@@ -177,17 +174,10 @@ function _fetch(results, req, res, next) {
 
           // 持久化至本地数据库
           (function(data) {
-            var seqno = msg.seqno;
-            Mail.findOne({seqno: seqno}, function(err, mi) {
-              if (err) return next(err);
-              if (!mi) {
-                var mailInstance = new Mail();
-                console.log('save');
-                mailInstance.seqno = seqno;
-                mailInstance.data = data;
-                mailInstance.save(function(err) {
-                  if (err) return next(err);
-                });
+            var id = msg.seqno;
+            mailUtil.getMailById(id, function(mail) {
+              if (!mail) {
+                mailUtil.saveMail({seqno: id, data: data});
               }
             });
           })(data);

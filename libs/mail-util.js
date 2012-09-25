@@ -1,6 +1,8 @@
 var ImapConnection = require('imap').ImapConnection;
 var util = require('util');
 var nodemailer = require('nodemailer');
+var models = require('../models');
+var Mail = models.Mail;
 
 var _handlers;
 var _next = 0;
@@ -19,7 +21,7 @@ exports.setHandlers = function(handlers) {
 
 exports.connection = function(user) {
   if (!user) return;
-  // todo 支持其他邮箱
+  // TODO 支持其他邮箱
   return new ImapConnection({
     username: user.name,
     password: user.pass,
@@ -36,7 +38,7 @@ exports.isFunction = function(obj) {
 exports.createTransport = function(req) {
   var user = req.session.user;
   if (!user) return;
-  
+
   var name = user.name,
     pass = user.pass;
 
@@ -50,6 +52,22 @@ exports.createTransport = function(req) {
       user: name,
       pass: pass
     }
+  });
+};
+
+exports.getMailById = function(id, cb) {
+  Mail.findOne({seqno: id}, function(err, mail) {
+    if (err) throw err;
+    cb(mail);
+  });
+};
+
+exports.saveMail = function(options) {
+  var mail = new Mail();
+  mail.seqno = options.seqno;
+  mail.data = options.data;
+  mail.save(function(err) {
+    if (err) throw err;
   });
 };
 
