@@ -1,14 +1,13 @@
 <%- include side.html %>
 
-<div class="main-body mail-page" id='J_content'>
-	<!-- <code><%=JSON.stringify(data)%></code> -->
-	<div class="btn-groups clearfix">
+<div class="main-body mail-page" id="J_content">
+  <div class="btn-groups clearfix" id="J_toolbar">
     <div class="btn-group">
       <button class="btn"><a href="/mail/inbox">返回</a> </button>
     </div>
-		<div class="btn-group">
+    <div class="btn-group">
       <button class="btn"><a href="/mail/inbox/<%=id%>/compose">回复</a> </button>
-		</div>
+    </div>
     <div class="btn-group">
       <button class="btn">转发 </button>
     </div>
@@ -25,7 +24,7 @@
         <li><a href="#">垃圾邮件</a></li>
       </ul>
     </div>
-	</div>
+  </div>
 	<div class="mail-body">
     <div><span class="label">主 题</span><%=data.mail.headers.subject%></span></div>
 	  <div><span class="label">发件人</span><%=data.mail.headers.from%></div>
@@ -43,4 +42,5 @@
   <iframe src="/mail/inbox/<%=id%>/html" class="mail-body-iframe"></iframe>
 </div>
 
+<script type="text/javascript" src="/libs/sticky-panel/stickypanel.js"></script>
 <script type="text/javascript" src="/javascripts/mail.js"></script>

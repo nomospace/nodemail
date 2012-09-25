@@ -1,12 +1,11 @@
 $(function() {
-
   'use strict';
 
   var inboxTpl = $('#inbox_tpl').html();
   var sideItemTpl = $('#side_item_tpl').html();
 
   function _getInbox() {
-    $.getJSON('/ajax/mail/inbox').done(function(result) {
+    $.getJSON('/ajax/mail/' + TAG).done(function(result) {
       console.log(result);
 
       var context = result.data;
@@ -19,7 +18,6 @@ $(function() {
       // });
 
       $('#J_content').html(Handlebars.compile(inboxTpl)(context));
-
       $('#J_side_list').html(Handlebars.compile(sideItemTpl)(context));
     });
   }

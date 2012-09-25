@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.post('/signin', sign.login);
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
+  app.get('/mail/unseen', inbox.unseen);
   app.get('/mail/inbox/page/:page', inbox.index);
   app.get('/mail/inbox/:id', inbox.getById);
   app.get('/mail/inbox/:id/html', inbox.getHtml);
@@ -27,7 +28,8 @@ module.exports = function(app) {
 
 
   // ajax
-  app.get('/ajax/mail/inbox', inbox.getList);
+  app.get('/ajax/mail/inbox', inbox.getAll);
+  app.get('/ajax/mail/unseen', inbox.getUnseen);
   app.get('/ajax/mail/boxes', inbox.getBoxes);
   app.post('/ajax/mail/send', compose.send);
 

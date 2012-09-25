@@ -1,6 +1,7 @@
 $(function() {
 
   $('iframe').iframeAutoHeight();
+  $('#J_toolbar').stickyPanel({topPadding: 50, savePanelSpace: true});
 
   var editor = 'J_editor';
   if (window.tinyMCE) {

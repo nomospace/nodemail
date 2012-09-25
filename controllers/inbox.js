@@ -19,14 +19,9 @@ emitter.on('messages', function(res) {
     status: 'success',
     data: mailObject
   });
-  console.log('Done fetching all messages!');
+//  console.log('Done fetching all messages!');
 // imap.logout(cb);
 });
-
-//emitter.on('boxes', function(res, boxes) {
-//  res.json(boxes);
-//  console.log('Done fetching all boxes!');
-//});
 
 exports.index = function(req, res) {
   if (req.session.user) {
@@ -38,8 +33,17 @@ exports.index = function(req, res) {
   }
 };
 
-exports.getList = function(req, res) {
-  _getMail(req, res);
+exports.unseen = function(req, res) {
+  res.locals({'tag': 'unseen'});
+  res.render('mail/list.html');
+};
+
+exports.getAll = function(req, res) {
+  _getMail(req, res, 'ALL');
+};
+
+exports.getUnseen = function(req, res) {
+  _getMail(req, res, 'UNSEEN');
 };
 
 exports.getById = function(req, res) {
@@ -51,7 +55,7 @@ exports.getById = function(req, res) {
         res.locals({
           'id': id,
           'page': page,
-          'tag': 'index',
+          'tag': 'mail',
           'moment': moment,
           'data': mail.data
         });
@@ -76,10 +80,13 @@ exports.getHtml = function(req, res) {
   }
 };
 
-function _getMail(req, res) {
+function _getMail(req, res, type) {
   var user = req.session.user;
-  if (!user) return;
-  if (!imap) {
+  if (!user) {
+    res.redirect('/signin');
+    return;
+  }
+  if (!imap || inboxPage > 1 || type != 'ALL') {
     // TODO 离开页面时，需要 abort 掉 imap 连接
     imap = mailUtil.connection(user);
     imap.on('error', function(err) {
@@ -89,14 +96,17 @@ function _getMail(req, res) {
       _connect,
       _getBoxes,
       _openBox,
-      _search,
+      function(results) {
+        _search(results, type);
+      },
       function(results) {
         _fetch(results, req, res);
       }
     ]);
     cb();
   } else {
-    mailUtil.getMailList(function(list) {
+    mailUtil.getMailListByPage(1, function(list) {
+      mailObject.msgs = [];
       list.forEach(function(l) {
         mailObject.msgs.push(l.data);
       });
@@ -114,32 +124,24 @@ function _connect(/*fn*/) {
 }
 
 function _getBoxes() {
-  if (!cache.get('boxes') || !cache.get('boxes').length) {
-    imap.getBoxes(function(err, boxes) {
-      cache.set('boxes', boxes);
-      if (err) throw err;
-      mailObject.boxes = [];
-//      console.log(boxes);
-      for (var key in boxes) {
-        key && mailObject.boxes.push(key);
-//        console.log('status: ' + key);
-//        imap.status(key, function(err, box) {
-//          console.log(key, err, box);
-//        });
-      }
-      cb();
-    });
-  }
+  mailUtil.getBoxes(imap, function(boxes) {
+    mailObject.boxes = boxes;
+    cb();
+  });
 }
 
 function _openBox() {
   imap.openBox('INBOX', false, cb);
 }
 
-function _search(results) {
+function _search(results, type) {
   mailObject.messages = results.messages;
   // node-imap 不支持几天时间段内的查询
-  imap.search(['ALL', ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
+  if (type == 'UNSEEN') {
+    imap.search([type], cb);
+  } else {
+    imap.search([type, ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
+  }
 }
 
 function _fetch(results, req, res) {
@@ -161,12 +163,12 @@ function _fetch(results, req, res) {
     });
 
   // req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
-  var msgs = {};
+//  var msgs = {};
 
   console.log('total:', msgLength);
 
   fetch.on('message', function(msg) {
-    // var fileName = 'msg-' + msg.seqno + '-raw.txt';
+    // var fileName = 'msg-' + msg.uid + '-raw.txt';
     // fileStream = fs.createWriteStream(fileName);
     msg.on('data', function(chunk) {
       // fileStream.write(chunk);
@@ -188,15 +190,17 @@ function _fetch(results, req, res) {
             'mail': mail
           };
 
-          msgs[msg.seqno] = data;
+//          msgs[msg.uid] = data;
           mailObject.msgs.push(data);
 
           // 持久化至本地数据库
           (function(data) {
-            var id = msg.seqno;
+            var id = msg.uid;
             mailUtil.getMailById(id, function(mail) {
               if (!mail) {
-                mailUtil.saveMail({seqno: id, data: data, username: req.session.user.name});
+                mailUtil.saveMail({id: id, page: inboxPage, data: data, username: req.session.user.name});
+//              } else if (mail.page != inboxPage) {
+//                mailUtil.updateMail({id: id, page: inboxPage});
               }
             });
           })(data);

@@ -1,13 +1,15 @@
 <%- include side.html %>
 
-<div class="main-body" id='J_content'>
+<div class="main-body" id="J_content">
   正在获取数据...
 </div>
 
 <script id="inbox_tpl" type="tpl/cache">
+  <%if(tag!=='unseen'){%>
   {{#messages}}
-    <p>共 <strong>{{total}}</strong> 封，其中 <a href="javascript:;">未读邮件</a> <strong>{{new}}</strong> 封 <a href="javascript:;">全部设为已读</a></p>
+    <p>共 <strong>{{total}}</strong> 封，其中 <a href="/mail/unseen">未读邮件</a> <strong>{{new}}</strong> 封 <!--<a href="javascript:;">全部设为已读</a>--></p>
   {{/messages}}
+  <%}%>
   <table class="table table-striped">
     <tr>
       <th>发件人</th>
@@ -16,22 +18,11 @@
     </tr>
     {{#each msgs}}
       <tr>
-        <!--div>{{chunk}}</div-->
       {{#mail}}
-        <!--p><strong>flags: </strong>{{#each flags}}{{.}}{{/each}}</p-->
-        <!--p><strong>date: </strong>{{dateFormat date}}</p-->
         {{#headers}}
           <td>{{from}}</td>
-          <td><a href="/mail/inbox/{{../../msg/seqno}}">{{#each subject}}{{.}}{{/each}}</a></td>
+          <td><a href="/mail/inbox/{{../../msg/uid}}">{{#each subject}}{{.}}{{/each}}</a></td>
           <td>{{dateFormat date}}</td>
-          <!--p><strong>content-type: </strong>{{#each content-type}}{{.}}{{/each}}</p>
-          <p><strong>message-id: </strong>{{#each message-id}}{{.}}{{/each}}</p>
-          <p><strong>mime-version: </strong>{{#each mime-version}}{{.}}{{/each}}</p>
-          <p><strong>received: </strong>{{#each received}}{{.}}{{/each}}</p>
-          <p><strong>to: </strong>{{#each to}}{{.}}{{/each}}</p>
-          <p><strong>x-cm-transid: </strong>{{#each x-cm-transid}}{{.}}{{/each}}</p>
-          <p><strong>x-coremail-antispam: </strong>{{#each x-coremail-antispam}}{{.}}{{/each}}</p>
-          <p><strong>x-originating-ip: </strong>{{#each x-originating-ip}}{{.}}{{/each}}</p-->
         {{/headers}}
       </tr>
       {{/mail}}
@@ -44,6 +35,7 @@
       </tr>
     {{/msgs}}
   </table>
+  <%if(tag!=='unseen'){%>
   <ul class="pager">
     <li class="previous">
       <a href="/mail/inbox/page/<%=parseInt(page)+1%>">&larr; <%=parseInt(page)+1%>周前</a>
@@ -54,7 +46,9 @@
     </li>
     <%}%>
   </ul>
+  <%}%>
 </script>
-<script type="text/javascript" src="/libs/moment/moment.js"></script>
-<script type="text/javascript" src="/libs/moment/lang/zh-cn.js"></script>
-<script type="text/javascript" src="/javascripts/inbox.js"></script>
+<script src="/libs/moment/moment.js"></script>
+<script src="/libs/moment/lang/zh-cn.js"></script>
+<script>TAG='<%=tag||"inbox"%>';</script>
+<script src="/javascripts/inbox.js"></script>

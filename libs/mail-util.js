@@ -58,7 +58,7 @@ exports.createTransport = function(req) {
 };
 
 exports.getMailById = function(id, cb) {
-  Mail.findOne({seqno: id, username: USER.name}, function(err, mail) {
+  Mail.findOne({id: id, username: USER.name}, function(err, mail) {
     if (err) throw err;
     cb(mail);
   });
@@ -66,7 +66,8 @@ exports.getMailById = function(id, cb) {
 
 exports.saveMail = function(options) {
   var mail = new Mail();
-  mail.seqno = options.seqno;
+  mail.id = options.id;
+  mail.page = options.page;
   mail.data = options.data;
   mail.username = USER.name;
   mail.save(function(err) {
@@ -89,12 +90,44 @@ exports.saveMail = function(options) {
 //  });
 //};
 
-exports.getMailList = function(cb) {
-  Mail.find({username: USER.name}, 'data', function(err, list) {
-    // TODO list 数据对象不仅仅包含纯 data 字段
+exports.getMailListByPage = function(page, cb) {
+  Mail.find({page: page, username: USER.name}, 'data',
+    function(err, list) {
+      // TODO list 数据对象不仅仅包含纯 data 字段
+      // 数据按时间对象排序
+      if (err) throw err;
+      cb(list);
+    });
+};
+
+exports.updateMail = function(options) {
+  Mail.update({id: options.id, page: options.page, username: USER.name}, function(err, mail) {
     if (err) throw err;
-    cb(list);
   });
+};
+
+exports.getUnseenMail = function(imap, cb) {
+  imap.search(['UNSEEN'], cb);
+};
+
+exports.getBoxes = function(imap, cb) {
+  imap.getBoxes(function(err, boxes) {
+    if (err) throw err;
+    var bs = [], key;
+//      console.log(boxes);
+    for (key in boxes) {
+      key && bs.push(key);
+//        console.log('status: ' + key);
+//        imap.status(key, function(err, box) {
+//          console.log(key, err, box);
+//        });
+    }
+    cb(bs);
+  });
+};
+
+exports.saveBoxes = function() {
+
 };
 
 function die(err) {
