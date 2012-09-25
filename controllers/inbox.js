@@ -35,58 +35,58 @@ exports.index = function(req, res) {
   }
 };
 
-exports.getList = function(req, res, next) {
-  // res.send(JSON.stringify({response:'11json'}));
-  _getMail(req, res, next);
+exports.getList = function(req, res) {
+  _getMail(req, res);
 };
 
 exports.getById = function(req, res) {
-  var id = req.params.id;
-  if (id) {
-    mailUtil.getMailById(id, function(mail) {
-      res.locals({
-        'id': id,
-        'tag': 'index',
-        'moment': moment,
-        'data': mail.data
+  if (req.session.user) {
+    var id = req.params.id;
+    if (id !== '') {
+      mailUtil.getMailById(id, function(mail) {
+        res.locals({
+          'id': id,
+          'tag': 'index',
+          'moment': moment,
+          'data': mail.data
+        });
+        res.render('mail/mail.html');
       });
-      res.render('mail/mail.html');
-    });
+    }
   } else {
-    res.locals.tag = '';
-    res.render('mail/index.html');
+    res.redirect('/signin');
   }
 };
 
 exports.getHtml = function(req, res) {
-  var id = req.params.id;
-  if (id) {
-    mailUtil.getMailById(id, function(mail) {
-      res.locals({'html': mail.data.mail.html});
-      res.render('mail/content.html', {layout: false});
-    });
+  if (req.session.user) {
+    var id = req.params.id;
+    if (id !== '') {
+      mailUtil.getMailById(id, function(mail) {
+        var html = mail.data.mail.html || mail.data.mail.text;
+        res.locals({'html': html});
+        res.render('mail/content.html', {layout: false});
+      });
+    }
   }
-}
+};
 
-function _getMail(req, res, next) {
+function _getMail(req, res) {
   var user = req.session.user;
   if (!user) return;
-
   if (!imap) {
     /*req.session.imap =*/
     imap = mailUtil.connection(user);
   }
-
   mailUtil.setHandlers([
     _connect,
     _getBoxes,
     _openBox,
     _search,
     function(results) {
-      _fetch(results, req, res, next);
+      _fetch(results, req, res);
     }
   ]);
-
   cb();
 }
 
@@ -127,7 +127,7 @@ function _search(results) {
   imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 1)]], cb);
 }
 
-function _fetch(results, req, res, next) {
+function _fetch(results, req, res) {
   var msgLength = results.length,
     fetch = imap.fetch(results, {
       request: {
@@ -137,8 +137,7 @@ function _fetch(results, req, res, next) {
       }
     });
 
-  // TODO req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
-//  req.session.msgs = {};
+  // req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
   var msgs = {};
 
   console.log('total:', msgLength);
@@ -177,7 +176,7 @@ function _fetch(results, req, res, next) {
             var id = msg.seqno;
             mailUtil.getMailById(id, function(mail) {
               if (!mail) {
-                mailUtil.saveMail({seqno: id, data: data});
+                mailUtil.saveMail({seqno: id, data: data, username: req.session.user.name});
               }
             });
           })(data);

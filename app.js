@@ -6,6 +6,7 @@ var markdown = require('markdown-js');
 var partials = require('express-partials');
 var ejs = require('ejs');
 var fs = require('fs');
+var authUser = require('./controllers/sign').authUser;
 
 var app = express();
 
@@ -28,14 +29,12 @@ app.configure('development', function() {
     });
   });
 
-  app.use(express.bodyParser({}));
+  app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({
     secret: config.sessionSecret
   }));
-  // custom middleware
-  app.use(require('./controllers/sign').authUser);
-  // load the express-partials middleware
+  app.use(authUser);
   app.use(partials());
 });
 
@@ -46,9 +45,7 @@ app.configure('development', function() {
 // set static, dynamic helpers
 // 为 layout.html 绑定数据
 app.locals({
-  config: config
-});
-app.locals({
+  config: config,
   csrf: function(req, res) {
     // todo csrf -> undefined
     return req.session ? req.session._csrf : '';

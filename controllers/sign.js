@@ -5,44 +5,39 @@ var crypto = require('crypto');
 exports.showLogin = function(req, res) {
   // req.session._loginReferer = req.headers.referer;
   res.render('sign/signin.html');
-}
+};
 
-exports.login = function(req, res, next) {
+exports.login = function(req, res) {
   var name = sanitize(req.body.name).trim().toLowerCase();
   var pass = sanitize(req.body.pass).trim();
-
   var user = {
     name: name,
     pass: pass
   };
-
   // store session cookie
   genSession(user, res);
 
-  req.session.user = user;
+  USER = req.session.user = user;
   res.locals({'currentUser': req.session.user});
 
   res.redirect('/mail');
-}
+};
 
 exports.signout = function(req, res, next) {
 //  if (req.session.imap) {
 //    req.session.imap.logout();
 //  }
   req.session.destroy();
-  res.clearCookie(config.authCookieName, {
-    path: '/'
-  });
+  res.clearCookie(config.authCookieName, {path: '/'});
   res.redirect(req.headers.referer || 'home');
-}
+};
 
 exports.authUser = function(req, res, next) {
   if (req.session.user) {
     res.locals({'currentUser': req.session.user});
   }
   return next();
-}
-
+};
 
 // private
 

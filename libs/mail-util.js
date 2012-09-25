@@ -1,6 +1,6 @@
 var ImapConnection = require('imap').ImapConnection;
 var util = require('util');
-var nodemailer = require('nodemailer');
+var nodeMailer = require('nodemailer');
 var models = require('../models');
 var Mail = models.Mail;
 
@@ -42,7 +42,7 @@ exports.createTransport = function(req) {
   var name = user.name,
     pass = user.pass;
 
-  return nodemailer.createTransport('SMTP', {
+  return nodeMailer.createTransport('SMTP', {
     // service: "Gmail",
     host: 'smtp.163.com',
     // hostname
@@ -56,7 +56,7 @@ exports.createTransport = function(req) {
 };
 
 exports.getMailById = function(id, cb) {
-  Mail.findOne({seqno: id}, function(err, mail) {
+  Mail.findOne({seqno: id, username: USER.name}, function(err, mail) {
     if (err) throw err;
     cb(mail);
   });
@@ -66,6 +66,7 @@ exports.saveMail = function(options) {
   var mail = new Mail();
   mail.seqno = options.seqno;
   mail.data = options.data;
+  mail.username = USER.name;
   mail.save(function(err) {
     if (err) throw err;
   });

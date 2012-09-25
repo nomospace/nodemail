@@ -19,10 +19,12 @@
 		<%if(data){%>
 		  <div><span class="label">发件人</span><span id="J_from" class="uneditable-input"><%=data.mail.headers.to%></span></div>
 		  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7" value="<%=data.mail.headers.from%>" data-value="<%=data.mail.from[0].address%>"></div>
+		  <div><span class="label">抄送人</span><input id="J_cc" type="text" class="span7" value="<%=data.mail.headers.cc||''%>" data-value="<%=JSON.stringify(data.mail.cc)%>"></div>
 		  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7" value="<%=data.mail.headers.subject%>"></div>
 	  <%}else{%>
 		  <div><span class="label">发件人</span><input id="J_from" type="text" class="span7"></div>
 		  <div><span class="label">收件人</span><input id="J_to" type="text" class="span7"></div>
+		  <div><span class="label">抄送人</span><input id="J_cc" type="text" class="span7"></div>
 		  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7"></div>
 	  <%}%>
 	</div>

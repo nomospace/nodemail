@@ -30,6 +30,9 @@
     <div><span class="label">主 题</span><%=data.mail.headers.subject%></span></div>
 	  <div><span class="label">发件人</span><%=data.mail.headers.from%></div>
 	  <div><span class="label">收件人</span><%=data.mail.headers.to%></div>
+    <%if(data.mail.headers.cc){%>
+	  <div><span class="label">抄送人</span><%=data.mail.headers.cc%></div>
+    <%}%>
     <div><span class="label">时 间</span><%=moment(data.mail.headers.date).format('LLLL')%></div>
     <!-- todo 注册 commen helper -->
     <!-- todo 附件文本乱码问题 -->

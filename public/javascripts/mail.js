@@ -21,6 +21,7 @@ $(function() {
   var $composeBody = $('#J_compose_body'),
     $send = $('#J_send'),
     $to = $('#J_to'),
+    $cc = $('#J_cc'),
     $from = $('#J_from'),
     $subject = $('#J_subject');
   // $text = $('#J_text'),
@@ -35,6 +36,7 @@ $(function() {
     }
     $.post('/ajax/mail/send', {
       'to': $to.val() || $to.data('value'),
+      'cc': $cc.val() || $cc.data('value'),
       'from': from,
       'subject': $subject.val(),
       'text': $(html).text(),
