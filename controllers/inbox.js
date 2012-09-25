@@ -80,23 +80,29 @@ function _getMail(req, res) {
   var user = req.session.user;
   if (!user) return;
   if (!imap) {
-    /*req.session.imap =*/
+    // TODO 离开页面时，需要 abort 掉 imap 连接
     imap = mailUtil.connection(user);
     imap.on('error', function(err) {
       console.log(err);
     });
-//    mailUtil.saveImap(imap);
+    mailUtil.setHandlers([
+      _connect,
+      _getBoxes,
+      _openBox,
+      _search,
+      function(results) {
+        _fetch(results, req, res);
+      }
+    ]);
+    cb();
+  } else {
+    mailUtil.getMailList(function(list) {
+      list.forEach(function(l) {
+        mailObject.msgs.push(l.data);
+      });
+      emitter.emit('messages', res);
+    });
   }
-  mailUtil.setHandlers([
-    _connect,
-    _getBoxes,
-    _openBox,
-    _search,
-    function(results) {
-      _fetch(results, req, res);
-    }
-  ]);
-  cb();
 }
 
 function _connect(/*fn*/) {
@@ -108,8 +114,7 @@ function _connect(/*fn*/) {
 }
 
 function _getBoxes() {
-  // cpu 高负荷 ?
-  if (!cache.get('boxes1') || !cache.get('boxes').length) {
+  if (!cache.get('boxes') || !cache.get('boxes').length) {
     imap.getBoxes(function(err, boxes) {
       cache.set('boxes', boxes);
       if (err) throw err;

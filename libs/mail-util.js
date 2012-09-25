@@ -89,6 +89,14 @@ exports.saveMail = function(options) {
 //  });
 //};
 
+exports.getMailList = function(cb) {
+  Mail.find({username: USER.name}, 'data', function(err, list) {
+    // TODO list 数据对象不仅仅包含纯 data 字段
+    if (err) throw err;
+    cb(list);
+  });
+};
+
 function die(err) {
   console.log('Uh oh: ' + err);
   // process.exit(1);
