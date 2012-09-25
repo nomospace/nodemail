@@ -1,6 +1,7 @@
 var config = require('../config').config;
 var sanitize = require('validator').sanitize;
 var crypto = require('crypto');
+var mailUtil = require('../libs/mail-util');
 
 exports.showLogin = function(req, res) {
   // req.session._loginReferer = req.headers.referer;
@@ -23,13 +24,20 @@ exports.login = function(req, res) {
   res.redirect('/mail');
 };
 
-exports.signout = function(req, res, next) {
-//  if (req.session.imap) {
-//    req.session.imap.logout();
-//  }
-  req.session.destroy();
-  res.clearCookie(config.authCookieName, {path: '/'});
-  res.redirect(req.headers.referer || 'home');
+exports.signout = function(req, res) {
+  if (req.session.user) {
+    // TODO RangeError: Maximum call stack size exceeded
+//    mailUtil.getImap(function(data) {
+//      if (data) {
+//        data.imap.logout();
+//      }
+      req.session.destroy();
+      res.clearCookie(config.authCookieName, {path: '/'});
+      res.redirect(req.headers.referer || 'home');
+//    });
+  } else {
+    res.redirect('/signin');
+  }
 };
 
 exports.authUser = function(req, res, next) {

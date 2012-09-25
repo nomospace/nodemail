@@ -9,6 +9,8 @@ var emitter = new (require('events').EventEmitter)();
 var cb = mailUtil.cb;
 var imap, mailObject = {};
 
+var inboxPage;
+
 moment.lang('zh-cn');
 
 emitter.on('messages', function(res) {
@@ -28,10 +30,11 @@ emitter.on('messages', function(res) {
 
 exports.index = function(req, res) {
   if (req.session.user) {
-    res.locals.tag = 'inbox';
+    var page = inboxPage = req.params.page || 1;
+    res.locals({'tag': 'inbox', 'page': page});
     res.render('mail/list.html');
   } else {
-    res.render('sign/signin.html');
+    res.redirect('/signin');
   }
 };
 
@@ -41,11 +44,13 @@ exports.getList = function(req, res) {
 
 exports.getById = function(req, res) {
   if (req.session.user) {
-    var id = req.params.id;
+    var id = req.params.id,
+      page = req.params.page || 1;
     if (id !== '') {
       mailUtil.getMailById(id, function(mail) {
         res.locals({
           'id': id,
+          'page': page,
           'tag': 'index',
           'moment': moment,
           'data': mail.data
@@ -77,6 +82,10 @@ function _getMail(req, res) {
   if (!imap) {
     /*req.session.imap =*/
     imap = mailUtil.connection(user);
+    imap.on('error', function(err) {
+      console.log(err);
+    });
+//    mailUtil.saveImap(imap);
   }
   mailUtil.setHandlers([
     _connect,
@@ -124,10 +133,19 @@ function _openBox() {
 
 function _search(results) {
   mailObject.messages = results.messages;
-  imap.search(['ALL', ['SINCE', moment().subtract('days', 7 * 1)]], cb);
+  // node-imap 不支持几天时间段内的查询
+  imap.search(['ALL', ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
 }
 
 function _fetch(results, req, res) {
+  var msgChunk = '';
+  mailObject.msgs = [];
+
+  if (!results.length) {
+    emitter.emit('messages', res);
+    return;
+  }
+
   var msgLength = results.length,
     fetch = imap.fetch(results, {
       request: {
@@ -141,9 +159,6 @@ function _fetch(results, req, res) {
   var msgs = {};
 
   console.log('total:', msgLength);
-
-  var msgChunk = '';
-  mailObject.msgs = [];
 
   fetch.on('message', function(msg) {
     // var fileName = 'msg-' + msg.seqno + '-raw.txt';

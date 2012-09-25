@@ -36,7 +36,24 @@
       </tr>
       {{/mail}}
     {{/each}}
+    {{^msgs}}
+      <tr>
+        <td colspan="3">
+          <div class="well">无数据</div>
+        </td>
+      </tr>
+    {{/msgs}}
   </table>
+  <ul class="pager">
+    <li class="previous">
+      <a href="/mail/inbox/page/<%=parseInt(page)+1%>">&larr; <%=parseInt(page)+1%>周前</a>
+    </li>
+    <%if(page!=1){%>
+    <li class="next">
+      <a href="/mail/inbox/page/<%=parseInt(page)-1%>"><%=parseInt(page)-1%>周前 &rarr;</a>
+    </li>
+    <%}%>
+  </ul>
 </script>
 <script type="text/javascript" src="/libs/moment/moment.js"></script>
 <script type="text/javascript" src="/libs/moment/lang/zh-cn.js"></script>

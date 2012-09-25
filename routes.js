@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.post('/signin', sign.login);
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
+  app.get('/mail/inbox/page/:page', inbox.index);
   app.get('/mail/inbox/:id', inbox.getById);
   app.get('/mail/inbox/:id/html', inbox.getHtml);
   app.get('/mail/inbox/:id/compose', compose.index);

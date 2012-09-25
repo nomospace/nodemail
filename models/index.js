@@ -10,5 +10,9 @@ mongoose.connect(config.db, function(err) {
 
 // models
 require('./mail');
+//require('./user');
+require('./temp');
 
 exports.Mail = mongoose.model('Mail');
+//exports.User = mongoose.model('User');
+exports.Temp = mongoose.model('Temp');

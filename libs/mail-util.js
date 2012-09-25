@@ -3,6 +3,7 @@ var util = require('util');
 var nodeMailer = require('nodemailer');
 var models = require('../models');
 var Mail = models.Mail;
+//var Temp = models.Temp;
 
 var _handlers;
 var _next = 0;
@@ -27,6 +28,7 @@ exports.connection = function(user) {
     password: user.pass,
     host: 'imap.163.com',
     port: 993,
+//    debug: console.error,
     secure: true
   });
 };
@@ -71,6 +73,21 @@ exports.saveMail = function(options) {
     if (err) throw err;
   });
 };
+
+//exports.saveImap = function(imap) {
+//  var temp = new Temp();
+//  temp.imap = imap;
+//  temp.save(function(err) {
+//    if (err) throw err;
+//  });
+//};
+
+//exports.getImap = function(cb) {
+//  Temp.findOne(USER.name, function(err, temp) {
+//    if (err) throw err;
+//    cb(temp);
+//  });
+//};
 
 function die(err) {
   console.log('Uh oh: ' + err);
