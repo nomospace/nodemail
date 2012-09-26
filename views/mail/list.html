@@ -5,7 +5,7 @@
 </div>
 
 <script id="inbox_tpl" type="tpl/cache">
-  <%if(tag!=='unseen'){%>
+  <%if(tag=='inbox'){%>
   {{#messages}}
     <p>共 <strong>{{total}}</strong> 封，其中 <a href="/mail/unseen">未读邮件</a> <strong>{{new}}</strong> 封 <!--<a href="javascript:;">全部设为已读</a>--></p>
   {{/messages}}
@@ -35,7 +35,7 @@
       </tr>
     {{/msgs}}
   </table>
-  <%if(tag!=='unseen'){%>
+  <%if(tag=='inbox'){%>
   <ul class="pager">
     <li class="previous">
       <a href="/mail/inbox/page/<%=parseInt(page)+1%>">&larr; <%=parseInt(page)+1%>周前</a>

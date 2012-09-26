@@ -33,8 +33,18 @@ exports.index = function(req, res) {
   }
 };
 
+exports.seen = function(req, res) {
+  res.locals({'tag': 'seen'});
+  res.render('mail/list.html');
+};
+
 exports.unseen = function(req, res) {
   res.locals({'tag': 'unseen'});
+  res.render('mail/list.html');
+};
+
+exports.deleted = function(req, res) {
+  res.locals({'tag': 'deleted'});
   res.render('mail/list.html');
 };
 
@@ -42,8 +52,16 @@ exports.getAll = function(req, res) {
   _getMail(req, res, 'ALL');
 };
 
+exports.getSeen = function(req, res) {
+  _getMail(req, res, 'SEEN');
+};
+
 exports.getUnseen = function(req, res) {
   _getMail(req, res, 'UNSEEN');
+};
+
+exports.getDeleted = function(req, res) {
+  _getMail(req, res, 'DELETED');
 };
 
 exports.getById = function(req, res) {
@@ -90,7 +108,7 @@ function _getMail(req, res, type) {
     // TODO 离开页面时，需要 abort 掉 imap 连接
     imap = mailUtil.connection(user);
     imap.on('error', function(err) {
-      console.log(err);
+      if (err) throw err;
     });
     mailUtil.setHandlers([
       _connect,
@@ -115,12 +133,8 @@ function _getMail(req, res, type) {
   }
 }
 
-function _connect(/*fn*/) {
+function _connect() {
   imap.connect(cb);
-  // imap.connect(function(err, results) {
-  //   cb(err, results);
-  //   isFunction(fn) && fn();
-  // });
 }
 
 function _getBoxes() {
@@ -137,10 +151,10 @@ function _openBox() {
 function _search(results, type) {
   mailObject.messages = results.messages;
   // node-imap 不支持几天时间段内的查询
-  if (type == 'UNSEEN') {
-    imap.search([type], cb);
-  } else {
+  if (type == 'ALL') {
     imap.search([type, ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
+  } else {
+    imap.search([type], cb);
   }
 }
 

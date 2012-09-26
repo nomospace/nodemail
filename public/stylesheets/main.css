@@ -173,3 +173,9 @@ body {
 .side-folders .dropdown-toggle {
   width: 120px;
 }
+
+#J_toolbar {
+  width: 100%;
+  background-color: #FFF;
+  z-index: 9;
+}
