@@ -5,20 +5,17 @@
 	</div>
   <ul class="nav nav-list bs-docs-sidenav">
     <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/inbox"><i class="icon-chevron-right"></i> 收件箱</a></li>
-    <!--<li><a href="/mail/star"><i class="icon-chevron-right"></i> 星标邮件</a></li>-->
-    <li><a><i class="icon-chevron-right"></i> 草稿箱</a></li>
-    <li><a><i class="icon-chevron-right"></i> 已发送</a></li>
-    <li><a><i class="icon-chevron-right"></i> 已删除</a></li>
-    <li><a><i class="icon-chevron-right"></i> 垃圾箱</a></li>
+    <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/flagged"><i class="icon-chevron-right"></i> 星标邮件</a></li>
+    <li <%if(tag=='draft'){%>class="active"<%}%>><a href="/mail/draft"><i class="icon-chevron-right"></i> 草稿箱</a></li>
+    <li <%if(tag=='answered'){%>class="active"<%}%>><a href="/mail/answered"><i class="icon-chevron-right"></i> 已发送</a></li>
+    <li <%if(tag=='deleted'){%>class="active"<%}%>><a href="/mail/deleted"><i class="icon-chevron-right"></i> 已删除</a></li>
   </ul>
-  <%if(tag=='inbox'){%>
   <div class="side-folders btn-group">
     <button class="btn dropdown-toggle" data-toggle="dropdown">其他文件夹 <span class="caret"></span></button>
     <ul id="J_side_list" class="dropdown-menu">
       <li><a>加载中</a></li>
     </ul>
   </div>
-  <%}%>
 </div>
 <script id="side_item_tpl" type="tpl/cache">
   {{#boxes}}

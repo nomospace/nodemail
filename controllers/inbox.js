@@ -33,35 +33,87 @@ exports.index = function(req, res) {
   }
 };
 
+exports.flagged = function(req, res) {
+  if (req.session.user) {
+    res.locals({'tag': 'flagged'});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
+};
+
 exports.seen = function(req, res) {
-  res.locals({'tag': 'seen'});
-  res.render('mail/list.html');
+  if (req.session.user) {
+    res.locals({'tag': 'seen'});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
 };
 
 exports.unseen = function(req, res) {
-  res.locals({'tag': 'unseen'});
-  res.render('mail/list.html');
+  if (req.session.user) {
+    res.locals({'tag': 'unseen'});
+    res.render('mail/list.html');
+  }
+  else {
+    res.redirect('/signin');
+  }
 };
 
 exports.deleted = function(req, res) {
-  res.locals({'tag': 'deleted'});
-  res.render('mail/list.html');
+  if (req.session.user) {
+    res.locals({'tag': 'deleted'});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
+};
+
+exports.answered = function(req, res) {
+  if (req.session.user) {
+    res.locals({'tag': 'answered'});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
+};
+
+exports.draft = function(req, res) {
+  if (req.session.user) {
+    res.locals({'tag': 'draft'});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
 };
 
 exports.getAll = function(req, res) {
-  _getMail(req, res, 'ALL');
+  _getMail(req, res, {type: 'ALL'});
+};
+
+exports.getFlagged = function(req, res) {
+  _getMail(req, res, {type: 'FLAGGED'});
 };
 
 exports.getSeen = function(req, res) {
-  _getMail(req, res, 'SEEN');
+  _getMail(req, res, {type: 'SEEN'});
 };
 
 exports.getUnseen = function(req, res) {
-  _getMail(req, res, 'UNSEEN');
+  _getMail(req, res, {type: 'UNSEEN'});
 };
 
 exports.getDeleted = function(req, res) {
-  _getMail(req, res, 'DELETED');
+  _getMail(req, res, {type: 'DELETED'});
+};
+
+exports.getAnswered = function(req, res) {
+  _getMail(req, res, {type: 'ANSWERED'});
+};
+
+exports.getDraft = function(req, res) {
+  _getMail(req, res, {type: 'DRAFT'});
 };
 
 exports.getById = function(req, res) {
@@ -98,12 +150,10 @@ exports.getHtml = function(req, res) {
   }
 };
 
-function _getMail(req, res, type) {
-  var user = req.session.user;
-  if (!user) {
-    res.redirect('/signin');
-    return;
-  }
+function _getMail(req, res, options) {
+  var user = req.session.user,
+    type = options.type,
+    box = options.box;
   if (!imap || inboxPage > 1 || type != 'ALL') {
     // TODO 离开页面时，需要 abort 掉 imap 连接
     imap = mailUtil.connection(user);
@@ -113,7 +163,9 @@ function _getMail(req, res, type) {
     mailUtil.setHandlers([
       _connect,
       _getBoxes,
-      _openBox,
+      function() {
+        _openBox(box);
+      },
       function(results) {
         _search(results, type);
       },
@@ -138,14 +190,18 @@ function _connect() {
 }
 
 function _getBoxes() {
-  mailUtil.getBoxes(imap, function(boxes) {
-    mailObject.boxes = boxes;
+  if (cache.get('boxes')) {
     cb();
-  });
+  } else {
+    mailUtil.getBoxes(imap, function(boxes) {
+      cache.set('boxes', mailObject.boxes = boxes);
+      cb();
+    });
+  }
 }
 
-function _openBox() {
-  imap.openBox('INBOX', false, cb);
+function _openBox(box) {
+  imap.openBox(box || 'INBOX', false, cb);
 }
 
 function _search(results, type) {
@@ -177,15 +233,11 @@ function _fetch(results, req, res) {
     });
 
   // req.session 过大时，页面响应速度会明显变慢，估计是频繁调用 JSON.stringify(session) 导致的计算效率下降
-//  var msgs = {};
 
   console.log('total:', msgLength);
 
   fetch.on('message', function(msg) {
-    // var fileName = 'msg-' + msg.uid + '-raw.txt';
-    // fileStream = fs.createWriteStream(fileName);
     msg.on('data', function(chunk) {
-      // fileStream.write(chunk);
       msgChunk += chunk;
       cache.set(msg.seqno, msgChunk);
     });
@@ -193,18 +245,12 @@ function _fetch(results, req, res) {
       if (msgChunk) {
         var mp = new MailParser();
         mp.setMaxListeners(100);
-
-        // setup an event listener when the parsing finishes
-        // mp.on('headers', function(headers){
-        //   headers = headers;
-        // });
         mp.on('end', function(mail) {
+
           var data = {
             'msg': msg,
             'mail': mail
           };
-
-//          msgs[msg.uid] = data;
           mailObject.msgs.push(data);
 
           // 持久化至本地数据库
@@ -222,27 +268,15 @@ function _fetch(results, req, res) {
           // for (var i = 0; i < mail.attachments && mail.attachments.length; i++) {
           //   console.log(mail.attachments[i].fileName);
           // }
-
           if (msgLength == mailObject.msgs.length) {
             emitter.emit('messages', res);
           }
         });
 
-        // var mail = new Buffer(msgChunk, 'utf-8');
-        // for (var i = 0, len = mail.length; i < len; i++) {
-        //   mp.write(new Buffer([mail[i]]));
-        // }
-
-        // fs.createReadStream(fileName).pipe(mp);
-
         // send the email source to the parser
-        // mp.write();
         mp.end(cache.get(msg.seqno));
-
         msgChunk = '';
       }
-
-      // fileStream.end();
     });
   });
 }
