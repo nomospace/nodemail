@@ -88,6 +88,16 @@ exports.draft = function(req, res) {
   }
 };
 
+exports.box = function(req, res) {
+  if (req.session.user) {
+    res.locals({'tag': 'box'});
+    res.locals({'box': req.params.box});
+    res.render('mail/list.html');
+  } else {
+    res.redirect('/signin');
+  }
+};
+
 exports.getAll = function(req, res) {
   _getMail(req, res, {type: 'ALL'});
 };
@@ -114,6 +124,11 @@ exports.getAnswered = function(req, res) {
 
 exports.getDraft = function(req, res) {
   _getMail(req, res, {type: 'DRAFT'});
+};
+
+exports.getBoxMail = function(req, res) {
+  var box = req.params.box;
+  _getMail(req, res, {box: box});
 };
 
 exports.getById = function(req, res) {
@@ -210,7 +225,8 @@ function _search(results, type) {
   if (type == 'ALL') {
     imap.search([type, ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
   } else {
-    imap.search([type], cb);
+    // 打开自定义 box 的时候，type 会为 ALL
+    imap.search([type || 'ALL'], cb);
   }
 }
 

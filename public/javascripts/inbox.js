@@ -5,7 +5,7 @@ $(function() {
   var sideItemTpl = $('#side_item_tpl').html();
 
   function _getInbox() {
-    $.getJSON('/ajax/mail/' + TAG).done(function(result) {
+    $.getJSON('/ajax/mail/' + TAG + (BOX && ('/' + BOX) || '')).done(function(result) {
       console.log(result);
 
       var context = result.data;

@@ -5,7 +5,7 @@
 	</div>
   <ul class="nav nav-list bs-docs-sidenav">
     <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/inbox"><i class="icon-chevron-right"></i> 收件箱</a></li>
-    <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/flagged"><i class="icon-chevron-right"></i> 星标邮件</a></li>
+    <li <%if(tag=='flagged'){%>class="active"<%}%>><a href="/mail/flagged"><i class="icon-chevron-right"></i> 星标邮件</a></li>
     <li <%if(tag=='draft'){%>class="active"<%}%>><a href="/mail/draft"><i class="icon-chevron-right"></i> 草稿箱</a></li>
     <li <%if(tag=='answered'){%>class="active"<%}%>><a href="/mail/answered"><i class="icon-chevron-right"></i> 已发送</a></li>
     <li <%if(tag=='deleted'){%>class="active"<%}%>><a href="/mail/deleted"><i class="icon-chevron-right"></i> 已删除</a></li>
@@ -19,7 +19,7 @@
 </div>
 <script id="side_item_tpl" type="tpl/cache">
   {{#boxes}}
-  <li><a href="/mail/module/{{.}}">{{.}}</a></li>
+  <li><a href="/mail/box/{{.}}">{{.}}</a></li>
   {{/boxes}}
 </script>
 <script src="/libs/iframe-autoheight/jquery.iframe-auto-height.plugin.1.7.1.js" type="text/javascript"></script>

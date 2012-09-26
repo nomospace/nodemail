@@ -7,7 +7,7 @@
 <script id="inbox_tpl" type="tpl/cache">
   <%if(tag=='inbox'){%>
   {{#messages}}
-    <p>共 <strong>{{total}}</strong> 封，其中 <a href="/mail/unseen">未读邮件</a> <strong>{{new}}</strong> 封 <!--<a href="javascript:;">全部设为已读</a>--></p>
+    <p>共 <strong>{{total}}</strong> 封<%if(!box){%>，其中 <a href="/mail/unseen">未读邮件</a> <strong>{{new}}</strong> 封<%}%> <!--<a href="javascript:;">全部设为已读</a>--></p>
   {{/messages}}
   <%}%>
   <table class="table table-striped">
@@ -50,5 +50,5 @@
 </script>
 <script src="/libs/moment/moment.js"></script>
 <script src="/libs/moment/lang/zh-cn.js"></script>
-<script>TAG='<%=tag||"inbox"%>';</script>
+<script>TAG='<%=tag||"inbox"%>';BOX='<%=(box=box||"")%>';</script>
 <script src="/javascripts/inbox.js"></script>
