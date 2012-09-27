@@ -17,7 +17,6 @@ $ node app.js
 ## Screenshot
 
 ![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot1.png)  
-![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot2.png)	
 
 ## Testing
 
