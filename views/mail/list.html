@@ -1,5 +1,5 @@
 <%- include side.html %>
-
+<% var box=box||"" %>
 <div class="main-body" id="J_content">
   正在获取数据...
 </div>
@@ -50,5 +50,5 @@
 </script>
 <script src="/libs/moment/moment.js"></script>
 <script src="/libs/moment/lang/zh-cn.js"></script>
-<script>TAG='<%=tag||"inbox"%>';BOX='<%=(box=box||"")%>';</script>
+<script>TAG='<%=tag||"inbox"%>';BOX='<%=box%>';</script>
 <script src="/javascripts/inbox.js"></script>

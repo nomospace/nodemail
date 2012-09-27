@@ -19,7 +19,8 @@ $(function() {
   }
 
   // 发送
-  var $composeBody = $('#J_compose_body'),
+  var $delete = $('#J_delete'),
+    $composeBody = $('#J_compose_body'),
     $send = $('#J_send'),
     $to = $('#J_to'),
     $cc = $('#J_cc'),
@@ -43,7 +44,13 @@ $(function() {
       'text': $(html).text(),
       'html': html
     }, function(data) {
-      alert(data.message || '邮件发送成功！');
+      alert(data.message || '邮件发送成功');
+    });
+  });
+
+  $delete.click(function() {
+    $.post('/ajax/mail/' + ID + '/addFlags/deleted', function(data) {
+      alert('邮件删除' + (data.success ? '成功' : '失败'));
     });
   });
 

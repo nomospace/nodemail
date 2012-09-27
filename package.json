@@ -1,7 +1,7 @@
 {
   "name": "nodemail",
   "version": "0.1.4",
-  "description": "Simple webmail app built with nodejs.",
+  "description": "A simple web-mail base on nodejs.",
   "main": "app.js",
   "dependencies": {
     "ejs": "~0.8.2",
@@ -9,7 +9,7 @@
     "express": "~3.0.0rc5",
     "express-partials": "~0.0.6",
     "imap": "~0.5.2",
-    "lru-cache": "~2.0.2",
+    "lru-cache": "~2.0.4",
     "mailparser": "~0.2.28",
     "markdown-js": "~0.0.3",
     "moment": "~1.7.0",

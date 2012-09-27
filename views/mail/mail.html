@@ -12,7 +12,7 @@
       <button class="btn">转发 </button>
     </div>
     <div class="btn-group">
-      <button class="btn">删除 </button>
+      <button class="btn" id="J_delete">删除 </button>
     </div>
     <div class="btn-group">
       <button class="btn dropdown-toggle" data-toggle="dropdown">标记为 <span class="caret"></span></button>
@@ -42,5 +42,6 @@
   <iframe src="/mail/inbox/<%=id%>/html" class="mail-body-iframe"></iframe>
 </div>
 
-<script type="text/javascript" src="/libs/sticky-panel/stickypanel.js"></script>
-<script type="text/javascript" src="/javascripts/mail.js"></script>
+<script src="/libs/sticky-panel/stickypanel.js"></script>
+<script>ID="<%=id%>"</script>
+<script src="/javascripts/mail.js"></script>

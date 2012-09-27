@@ -165,6 +165,18 @@ exports.getHtml = function(req, res) {
   }
 };
 
+exports.addFlags = function(req, res) {
+  var id = req.params.id,
+    flag = req.params.flag.toUpperCase();
+  if (id && flag) {
+    // TODO flag 为 'deleted' 时操作成功，但 'deleted' 的邮件没法获取到
+    imap.addFlags(id, flag, function(err) {
+      if (err) throw err;
+      res.json({'success': true});
+    });
+  }
+};
+
 function _getMail(req, res, options) {
   var user = req.session.user,
     type = options.type,
@@ -175,6 +187,7 @@ function _getMail(req, res, options) {
     imap.on('error', function(err) {
       if (err) throw err;
     });
+
     mailUtil.setHandlers([
       _connect,
       _getBoxes,
@@ -220,6 +233,7 @@ function _openBox(box) {
 }
 
 function _search(results, type) {
+//  console.dir(imap._state.box.permFlags);
   mailObject.messages = results.messages;
   // node-imap 不支持几天时间段内的查询
   if (type == 'ALL') {
