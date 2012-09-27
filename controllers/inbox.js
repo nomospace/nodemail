@@ -189,7 +189,7 @@ function _getMail(req, res, options) {
     });
 
     mailUtil.setHandlers([
-      _connect,
+//      _connect,
       _getBoxes,
       function() {
         _openBox(box);
@@ -213,9 +213,9 @@ function _getMail(req, res, options) {
   }
 }
 
-function _connect() {
-  imap.connect(cb);
-}
+//function _connect() {
+//  imap.connect(cb);
+//}
 
 function _getBoxes() {
   if (cache.get('boxes')) {

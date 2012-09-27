@@ -18,23 +18,32 @@ exports.login = function(req, res) {
   // store session cookie
   genSession(user, res);
 
-  USER = req.session.user = user;
-  res.locals({'currentUser': req.session.user});
-
-  res.redirect('/mail');
+  mailUtil.connection(user).connect(function(err) {
+    if (err) {
+      throw err;
+    }
+    else {
+      console.log('login');
+      USER = req.session.user = user;
+      res.locals({'currentUser': req.session.user});
+      res.redirect('/mail');
+    }
+  });
 };
 
 exports.signout = function(req, res) {
-  if (req.session.user) {
-    // TODO RangeError: Maximum call stack size exceeded
-//    mailUtil.getImap(function(data) {
-//      if (data) {
-//        data.imap.logout();
-//      }
-      req.session.destroy();
-      res.clearCookie(config.authCookieName, {path: '/'});
-      res.redirect(req.headers.referer || 'home');
-//    });
+  var user = req.session.user;
+  if (user) {
+    mailUtil.connection(user).logout(function(err) {
+      if (err) {
+        throw err;
+      } else {
+        console.log('logout');
+        req.session.destroy();
+        res.clearCookie(config.authCookieName, {path: '/'});
+        res.redirect(req.headers.referer || 'home');
+      }
+    });
   } else {
     res.redirect('/signin');
   }

@@ -21,16 +21,19 @@ exports.setHandlers = function(handlers) {
 };
 
 exports.connection = function(user) {
-  if (!user) return;
-  // TODO 支持其他邮箱
-  return new ImapConnection({
-    username: user.name,
-    password: user.pass,
-    host: 'imap.163.com',
-    port: 993,
-//    debug: console.error,
-    secure: true
-  });
+  if (!this.conn) {
+    // TODO 匹配不够精确
+    var mail = user.name.split('@')[1].split('.')[0];
+    this.conn = new ImapConnection({
+      username: user.name,
+      password: user.pass,
+      host: 'imap.' + mail + '.com',
+      port: 993,
+//      debug: console.error,
+      secure: true
+    });
+  }
+  return this.conn;
 };
 
 exports.isFunction = function(obj) {
