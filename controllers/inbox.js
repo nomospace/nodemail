@@ -182,7 +182,6 @@ function _getMail(req, res, options) {
     type = options.type,
     box = options.box;
   if (!imap || inboxPage > 1 || type != 'ALL') {
-    // TODO 离开页面时，需要 abort 掉 imap 连接
     imap = mailUtil.connection(user);
     imap.on('error', function(err) {
       if (err) throw err;
@@ -233,14 +232,16 @@ function _openBox(box) {
 }
 
 function _search(results, type) {
+  if (results) {
 //  console.dir(imap._state.box.permFlags);
-  mailObject.messages = results.messages;
-  // node-imap 不支持几天时间段内的查询
-  if (type == 'ALL') {
-    imap.search([type, ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
-  } else {
-    // 打开自定义 box 的时候，type 会为 ALL
-    imap.search([type || 'ALL'], cb);
+    mailObject.messages = results.messages;
+    // node-imap 不支持几天时间段内的查询
+    if (type == 'ALL') {
+      imap.search([type, ['SINCE', moment().subtract('weeks', inboxPage)]], cb);
+    } else {
+      // 打开自定义 box 的时候，type 会为 ALL
+      imap.search([type || 'ALL'], cb);
+    }
   }
 }
 
