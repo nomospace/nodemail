@@ -1,12 +1,14 @@
 nodemail ![Build Status](https://secure.travis-ci.org/fredwu/skinny-coffee-machine.png?branch=master)
 ========
 
-使用 nodejs 实现简易版邮箱
+基于 nodejs 的 web 邮箱
 
 
-## Install
+## 安装部署
 
 ```sh
+// install node npm mongodb  
+// run mongod  
 $ npm install nodemail  
 $ cd nodemail  
 $ node app.js
@@ -20,7 +22,6 @@ $ node app.js
 
 ## Testing
 
-todo
 
 
 ## Reference

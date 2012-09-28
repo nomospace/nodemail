@@ -1,6 +1,6 @@
 {
   "name": "nodemail",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A simple web-mail base on nodejs.",
   "main": "app.js",
   "dependencies": {
