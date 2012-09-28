@@ -21,7 +21,6 @@
     <script src='/libs/backbone/backbone.js'></script-->
     <script src='/libs/bootstrap/js/bootstrap.js'></script>
     <script src='/libs/handlebars/handlebars.js'></script>
-    <script src='/javascripts/main.js'></script>
     <% if (locals.topic) { %>
     <title><%= topic.title %> - <%= config.name %></title>
     <% } else { %>
@@ -35,10 +34,10 @@
         <div class='container'>
           <a class='brand' href='/mail'><%- config.site_logo || config.name %></a>
           <form id='search_form' class='navbar-search' action="/" style="display: none;">
-            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>'/>
+            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || "" %>'/>
           </form>
           <ul class='nav pull-right'>
-            <li><a href='/mail'>首页</a></li> 
+            <!--<li><a href='/mail'>首页</a></li>-->
             <%
             var site_navs = config.site_navs || [];
             for (var i = 0, l = site_navs.length; i < l; i++) {
@@ -48,14 +47,15 @@
             <% } %>
             <% locals %>
             <% if (locals.currentUser) { %>
-            <li><a href='/mail'>邮箱</a></li>  
-            <li><a href='/signout'>退出</a></li>  
+            <!--<li><a href='/mail'>邮箱</a></li>-->
+            <li><a><%=locals.currentUser.name%></a></li>
+            <li><a href='/signout'>退出</a></li>
             <% } else { %>
             <li><a href='/signin'>登录</a></li> 
             <% } %>
           </ul>
           <a class="fork2github" href="https://github.com/sdg-sysdev/nodemail">
-            <img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub">
+            <img src="/images/octocat-icon.png" alt="Fork me on GitHub">
           </a>
         </div>
       </div>

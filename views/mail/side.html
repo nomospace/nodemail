@@ -1,7 +1,8 @@
+<%tag=tag||''%>
 <div class="bs-docs-sidebar">
 	<div class="btn-group mail-comp">
-	  <button class="btn">收 信</button>
-	  <button class="btn"><a href="/mail/compose">写 信</a></button>
+	  <!--<button class="btn">收 信</button>-->
+    <a href="/mail/compose"><button class="btn" style="width:100%;">写 信</button></a>
 	</div>
   <ul class="nav nav-list bs-docs-sidenav">
     <li <%if(tag=='inbox'){%>class="active"<%}%>><a href="/mail/inbox"><i class="icon-chevron-right"></i> 收件箱</a></li>
@@ -10,12 +11,14 @@
     <li <%if(tag=='answered'){%>class="active"<%}%>><a href="/mail/answered"><i class="icon-chevron-right"></i> 已发送</a></li>
     <li <%if(tag=='deleted'){%>class="active"<%}%>><a href="/mail/deleted"><i class="icon-chevron-right"></i> 已删除</a></li>
   </ul>
+  <%if(tag){%>
   <div class="side-folders btn-group">
     <button class="btn dropdown-toggle" data-toggle="dropdown">其他文件夹 <span class="caret"></span></button>
     <ul id="J_side_list" class="dropdown-menu">
       <li><a>加载中</a></li>
     </ul>
   </div>
+  <%}%>
 </div>
 <script id="side_item_tpl" type="tpl/cache">
   {{#boxes}}
