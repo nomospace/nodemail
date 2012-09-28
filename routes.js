@@ -14,9 +14,9 @@ module.exports = function(app) {
 
   // url routes
   app.get('/', site.index);
-  app.get('/signin', sign.showLogin);
+  app.get('/signin', sign.showSignin);
   app.get('/signout', sign.signout);
-  app.post('/signin', sign.login);
+  app.post('/signin', sign.signin);
   app.get('/mail', mail.index);
   app.get('/mail/inbox', inbox.index);
   app.get('/mail/flagged', inbox.flagged);

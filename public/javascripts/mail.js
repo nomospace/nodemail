@@ -1,4 +1,5 @@
 $(function() {
+  'use strict';
 
   $('iframe').iframeAutoHeight();
   $('#J_toolbar').stickyPanel({topPadding: 40, savePanelSpace: true});
@@ -51,6 +52,12 @@ $(function() {
   $delete.click(function() {
     $.post('/ajax/mail/' + ID + '/addFlags/deleted', function(data) {
       alert('邮件删除' + (data.success ? '成功' : '失败'));
+    });
+  });
+
+  $('#J_saveas_draft').click(function() {
+    $.post('/ajax/mail/' + ID + '/addFlags/draft', function(data) {
+      alert('邮件保存' + (data.success ? '成功' : '失败'));
     });
   });
 

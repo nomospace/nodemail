@@ -20,8 +20,8 @@ exports.setHandlers = function(handlers) {
   _handlers = handlers;
 };
 
-exports.connection = function(user) {
-  if (!this.conn) {
+exports.getConnection = function(user, recreate) {
+  if (recreate || !this.conn) {
     // TODO 匹配不够精确
     var mail = user.name.split('@')[1].split('.')[0];
     this.conn = new ImapConnection({
@@ -34,6 +34,14 @@ exports.connection = function(user) {
     });
   }
   return this.conn;
+};
+
+exports.doConnect = function(options, cb) {
+  this.getConnection(options.user, options.recreate).connect(cb);
+};
+
+exports.doLogout = function(user, cb) {
+  this.getConnection(user).logout(cb);
 };
 
 exports.isFunction = function(obj) {

@@ -11,6 +11,7 @@ var imap, mailObject = {};
 
 var inboxPage;
 
+emitter.setMaxListeners(0);
 moment.lang('zh-cn');
 
 emitter.on('messages', function(res) {
@@ -181,8 +182,9 @@ function _getMail(req, res, options) {
   var user = req.session.user,
     type = options.type,
     box = options.box;
-  if (!imap || inboxPage > 1 || type != 'ALL') {
-    imap = mailUtil.connection(user);
+
+//  if (inboxPage > 1 || type != 'ALL') {
+    imap = mailUtil.getConnection(user);
     imap.on('error', function(err) {
       if (err) throw err;
     });
@@ -201,15 +203,15 @@ function _getMail(req, res, options) {
       }
     ]);
     cb();
-  } else {
-    mailUtil.getMailListByPage(1, function(list) {
-      mailObject.msgs = [];
-      list.forEach(function(l) {
-        mailObject.msgs.push(l.data);
-      });
-      emitter.emit('messages', res);
-    });
-  }
+//  } else {
+//    mailUtil.getMailListByPage(1, function(list) {
+//      mailObject.msgs = [];
+//      list.forEach(function(l) {
+//        mailObject.msgs.push(l.data);
+//      });
+//      emitter.emit('messages', res);
+//    });
+//  }
 }
 
 //function _connect() {
@@ -233,7 +235,7 @@ function _openBox(box) {
 
 function _search(results, type) {
   if (results) {
-//  console.dir(imap._state.box.permFlags);
+//    console.dir(imap._state.box.permFlags);
     mailObject.messages = results.messages;
     // node-imap 不支持几天时间段内的查询
     if (type == 'ALL') {

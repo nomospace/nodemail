@@ -3,12 +3,12 @@ var sanitize = require('validator').sanitize;
 var crypto = require('crypto');
 var mailUtil = require('../libs/mail-util');
 
-exports.showLogin = function(req, res) {
+exports.showSignin = function(req, res) {
   // req.session._loginReferer = req.headers.referer;
   res.render('sign/signin.html');
 };
 
-exports.login = function(req, res) {
+exports.signin = function(req, res) {
   var name = sanitize(req.body.name).trim().toLowerCase();
   var pass = sanitize(req.body.pass).trim();
   var user = {
@@ -18,12 +18,12 @@ exports.login = function(req, res) {
   // store session cookie
   genSession(user, res);
 
-  mailUtil.connection(user).connect(function(err) {
+  mailUtil.doConnect({user: user, recreate: true}, function(err) {
     if (err) {
       throw err;
     }
     else {
-      console.log('login');
+      console.log('signin');
       USER = req.session.user = user;
       res.locals({'currentUser': req.session.user});
       res.redirect('/mail');
@@ -34,11 +34,11 @@ exports.login = function(req, res) {
 exports.signout = function(req, res) {
   var user = req.session.user;
   if (user) {
-    mailUtil.connection(user).logout(function(err) {
+    mailUtil.doLogout(user, function(err) {
       if (err) {
         throw err;
       } else {
-        console.log('logout');
+        console.log('signout');
         req.session.destroy();
         res.clearCookie(config.authCookieName, {path: '/'});
         res.redirect(req.headers.referer || 'home');
