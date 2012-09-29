@@ -20,7 +20,7 @@ exports.signin = function(req, res) {
 
   mailUtil.doConnect({user: user, recreate: true}, function(err) {
     if (err) {
-      throw err;
+      res.render('sign/signin.html', {error: err.message || '出现未知异常'});
     }
     else {
       console.log('signin');

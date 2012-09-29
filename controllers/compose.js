@@ -42,12 +42,13 @@ exports.send = function(req, res) {
     options = {
       'from': body.from,
       'to': body.to,
+      'cc': body.cc,
       'subject': body.subject,
       'text': body.text,
       'html': body.html
     };
 
-  console.log(body);
+//  console.log(body);
 
   transport.sendMail(options, function(error) {
     if (error) {
