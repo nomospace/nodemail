@@ -1,3 +1,4 @@
+var index = require('./controllers/index');
 var site = require('./controllers/site');
 var sign = require('./controllers/sign');
 var mail = require('./controllers/mail');
@@ -31,6 +32,7 @@ module.exports = function(app) {
   app.get('/mail/compose', compose.index);
 
   // ajax
+  app.get('/ajax/mail/index', index);
   app.get('/ajax/mail/inbox', inbox.getAll);
   app.get('/ajax/mail/flagged', inbox.getFlagged);
   app.get('/ajax/mail/seen', inbox.getSeen);
