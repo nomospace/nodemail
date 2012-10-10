@@ -6,6 +6,15 @@ nodemail ![Build Status](https://secure.travis-ci.org/fredwu/skinny-coffee-machi
 
 ## 安装部署
 
+```sh  
+$ git clone https://github.com/sdg-sysdev/nodemail.git   
+$ cd nodemail 
+$ npm install  
+$ node app.js
+```
+
+或者
+
 ```sh
 // install node npm mongodb  
 // run mongod  
