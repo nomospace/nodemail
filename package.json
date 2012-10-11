@@ -1,8 +1,21 @@
 {
   "name": "nodemail",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A simple web-mail base on nodejs.",
-  "main": "app.js",
+  "author": "nomospace",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "width": 900,
+    "height": 600,
+    "position": "center",
+    "min_width": 900,
+    "min_height": 600,
+    "as_desktop": true
+  },
+  "webkit": {
+    "webgl-disabled": true
+  },
   "dependencies": {
     "ejs": "~0.8.2",
     "ejs-locals": "~0.2.5",
@@ -31,6 +44,5 @@
     "express",
     "imap"
   ],
-  "author": "nomospace",
   "license": "BSD"
 }

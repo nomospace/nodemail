@@ -9,10 +9,11 @@ var fs = require('fs');
 var authUser = require('./controllers/sign').authUser;
 
 var app = express();
+var appRoot = './';
 
 app.configure('development', function() {
   // View 默认的根目录为 viewsRoot 的值
-  app.set('views', path.join(__dirname, 'views'));
+  app.set('views', path.join(appRoot, 'views'));
   // View 引擎默认处理 html 后缀
   app.set('views engine', 'html');
   //  启用 View 缓存（在开发阶段被关闭）
@@ -31,7 +32,7 @@ app.configure('development', function() {
   app.use(express.session({secret: config.sessionSecret}));
   app.use(authUser);
   app.use(partials());
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(appRoot, 'public')));
   // 在 HTML 页面中显示程序传递和抛出的异常
   app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
 });
@@ -48,5 +49,3 @@ app.locals({
 routes(app);
 app.listen(config.port);
 console.log(config.host + ':' + config.port);
-
-module.exports = app;

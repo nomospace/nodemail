@@ -11,16 +11,22 @@ $ git clone https://github.com/sdg-sysdev/nodemail.git
 $ cd nodemail 
 $ npm install  
 $ node app.js
-```
-
-或者
-
+```  
+或者  
 ```sh
 // install node npm mongodb  
 // run mongod  
 $ npm install nodemail  
 $ cd nodemail  
 $ node app.js
+```  
+或者  
+```bash
+$ // 先安装 node-webkit https://github.com/rogerwang/node-webkit 
+$ git clone https://github.com/sdg-sysdev/nodemail.git   
+$ cd nodemail  
+$ npm install  
+$ make dev
 ```
 
 
@@ -39,7 +45,7 @@ $ node app.js
 [simplesmtp](https://github.com/andris9/simplesmtp)  
 [mailparser](https://github.com/andris9/mailparser)  
 [node-email-templates](https://github.com/niftylettuce/node-email-templates)  
-
+[node-webkit](https://github.com/rogerwang/node-webkit) 
 
 
 ## License 

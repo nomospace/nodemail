@@ -6,7 +6,7 @@ $(function() {
 
   function _getInbox() {
     $.getJSON('/ajax/mail/' + TAG + (BOX && ('/' + BOX) || '')).done(function(result) {
-      console.log(result);
+//      console.log(result);
 
       var context = result.data;
 
