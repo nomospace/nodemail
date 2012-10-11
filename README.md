@@ -1,4 +1,4 @@
-nodemail ![Build Status](https://secure.travis-ci.org/fredwu/skinny-coffee-machine.png?branch=master)
+nodemail [![Build Status](https://secure.travis-ci.org/sdg-sysdev/nodemail.png)](http://travis-ci.org/sdg-sysdev/nodemail)  
 ========
 
 基于 nodejs 的 web 邮箱
