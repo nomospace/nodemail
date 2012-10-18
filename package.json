@@ -32,7 +32,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node test/*.js"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",

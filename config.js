@@ -3,7 +3,7 @@ exports.config = {
   debug: true,
   name: 'nodemail',
   description: '基于 nodejs 的 web 邮箱',
-  version: 0.1,
+  version: 0.1.6,
 
   sessionSecret: 'nodemail',
   authCookieName: 'nodemail',
