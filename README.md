@@ -1,4 +1,4 @@
-nodemail [![Build Status](https://secure.travis-ci.org/sdg-sysdev/nodemail.png)](http://travis-ci.org/sdg-sysdev/nodemail)  
+nodemail [![Build Status](https://secure.travis-ci.org/nomospace/nodemail.png)](http://travis-ci.org/nomospace/nodemail)  
 ========
 
 基于 nodejs 的 web 邮箱
@@ -7,7 +7,7 @@ nodemail [![Build Status](https://secure.travis-ci.org/sdg-sysdev/nodemail.png)]
 ## 安装部署
 
 ```sh  
-$ git clone https://github.com/sdg-sysdev/nodemail.git   
+$ git clone https://github.com/nomospace/nodemail.git   
 $ cd nodemail 
 $ npm install  
 $ node app.js
@@ -23,7 +23,7 @@ $ node app.js
 或者  
 ```bash
 $ // 先安装 node-webkit https://github.com/rogerwang/node-webkit 
-$ git clone https://github.com/sdg-sysdev/nodemail.git   
+$ git clone https://github.com/nomospace/nodemail.git   
 $ cd nodemail  
 $ npm install  
 $ make dev
@@ -33,7 +33,7 @@ $ make dev
 
 ## Screenshot
 
-![程序截图](https://raw.github.com/sdg-sysdev/nodemail/master/demo/ScreenShot1.png)  
+![程序截图](https://raw.github.com/nomospace/nodemail/master/demo/ScreenShot1.png)  
 
 ## Testing
 
@@ -52,7 +52,7 @@ $ make dev
 
 (The MIT License)
 
-Copyright (c) 2012 sdg-sysdev
+Copyright (c) 2012 nomospace
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
