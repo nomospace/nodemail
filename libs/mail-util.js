@@ -23,7 +23,7 @@ exports.setHandlers = function(handlers) {
 exports.getConnection = function(user, recreate) {
   if (recreate || !this.conn) {
     // TODO 匹配不够精确
-    var mail = user.name.split('@')[1].split('.')[0];
+    var mail = user.name && user.name.split('@')[1].split('.')[0];
     this.conn = new ImapConnection({
       username: user.name,
       password: user.pass,
