@@ -1,5 +1,5 @@
 var ImapConnection = require('imap').ImapConnection;
-var util = require('util');
+//var util = require('util');
 var nodeMailer = require('nodemailer');
 var models = require('../models');
 var Mail = models.Mail;

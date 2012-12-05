@@ -31,6 +31,9 @@ $(function() {
     $attachFile = $('#J_attach_file');
   // $text = $('#J_text'),
   // $html = $('#J_html');
+
+  var attachItemTpl = $('#attach_item_tpl').html();
+
   $send.click(function() {
     var html = tinyMCE.get(editor).getContent(), from;
     if ($composeBody.data('reply')) {
@@ -65,8 +68,24 @@ $(function() {
     });
   });
 
+  function imagesSelected(files) {
+    for (var i = 0, f; f = files[i]; i++) {
+      var reader = new FileReader();
+      reader.onload = (function(file) {
+        return function(e) {
+//          var span = document.createElement('span');
+//          span.innerHTML = ['<img class="images" src="', e.target.result, '" title="', file.name, '"/>'].join('');
+//          $attachFile.after(span);
+          console.log(file, e.target);
+          $attachFile.after(Handlebars.compile(attachItemTpl)(file));
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
+  }
+
   $attachFile.change(function(e) {
-    debugger;
+    imagesSelected(e.target.files);
   });
 
 });

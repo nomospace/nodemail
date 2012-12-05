@@ -145,6 +145,25 @@ body {
   vertical-align: text-bottom;
 }
 
+.compose-body .attach {
+  position: relative;
+  cursor: pointer;
+  margin: 0 0 10px 60px;
+}
+
+.compose-body .attach input[type=file] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.compose-body .attach .thumbnail {
+  float: left;
+  width: 200px;
+  margin: 0 10px 10px 0;
+}
+
 .mceEditor iframe, .mail-body-iframe {
   width: 100%;
   min-height: 400px;
