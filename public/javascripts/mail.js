@@ -20,7 +20,8 @@ $(function() {
   }
 
   // 发送
-  var $delete = $('#J_delete'),
+  var $body = $('body'),
+    $delete = $('#J_delete'),
     $composeBody = $('#J_compose_body'),
     $send = $('#J_send'),
     $to = $('#J_to'),
@@ -73,10 +74,8 @@ $(function() {
       var reader = new FileReader();
       reader.onload = (function(file) {
         return function(e) {
-//          var span = document.createElement('span');
-//          span.innerHTML = ['<img class="images" src="', e.target.result, '" title="', file.name, '"/>'].join('');
-//          $attachFile.after(span);
-          console.log(file, e.target);
+          // TODO 获取本地绝对路径
+          console.log(file, e);
           $attachFile.after(Handlebars.compile(attachItemTpl)(file));
         };
       })(f);
@@ -88,4 +87,7 @@ $(function() {
     imagesSelected(e.target.files);
   });
 
+  $body.on('click', '.attach .icon-remove', function(e) {
+    $(e.target).parent().remove();
+  });
 });

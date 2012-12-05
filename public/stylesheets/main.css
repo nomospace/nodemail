@@ -159,9 +159,16 @@ body {
 }
 
 .compose-body .attach .thumbnail {
+  position: relative;
   float: left;
   width: 200px;
+  padding-right: 20px;
   margin: 0 10px 10px 0;
+}
+
+.compose-body .attach .thumbnail .icon-remove {
+  position: absolute;
+  right: 4px;
 }
 
 .mceEditor iframe, .mail-body-iframe {
