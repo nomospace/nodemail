@@ -27,6 +27,7 @@
 		  <div><span class="label">抄送人</span><input id="J_cc" type="text" class="span7"></div>
 		  <div><span class="label">主 题</span><input id="J_subject" type="text" class="span7"></div>
 	  <%}%>
+    <div class="attach"><p><i class="icon-upload"></i>添加本地附件</p><input type="file" id="J_attach_file"></div>
 	</div>
 	<textarea id="J_editor" style="display:none;">
 		<%if(data){%>
@@ -37,7 +38,11 @@
 	  <%}%>
 	</textarea>
 </div>
-
+<script id="attach_item_tpl" type="tpl/cache">
+  <div class="thumbnail">
+    <i class="icon-file"></i>{{name}} {{size}}bytes <i class="icon-remove"></i>
+  </div>
+</script>
 <script type="text/javascript" src="/libs/tiny-mce/tiny_mce_dev.js"></script>
 <script type="text/javascript" src="/libs/sticky-panel/stickypanel.js"></script>
 <script>ID="<%=id%>"</script>
