@@ -32,7 +32,7 @@
 	  <div><span class="label">抄送人</span><%=data.mail.headers.cc%></div>
     <%}%>
     <div><span class="label">时 间</span><%=moment(data.mail.headers.date).format('LLLL')%></div>
-    <!-- todo 注册 commen helper -->
+    <!-- todo 注册 common helper -->
     <!-- todo 附件文本乱码问题 -->
     <%if(data.mail.attachments&&data.mail.attachments.length){%>
     <div><span class="label">附 件</span><%=data.mail.attachments.length%>个<%(data.mail.attachments.forEach(function(i){%> (<%=i.generatedFileName%> <%=i.length/1024%>k<%}))%>)</div>

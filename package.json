@@ -1,6 +1,6 @@
 {
   "name": "nodemail",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A simple web-mail base on nodejs.",
   "author": "nomospace",
   "main": "index.html",
@@ -36,7 +36,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sdg-sysdev/nodemail.git"
+    "url": "https://github.com/nomospace/nodemail.git"
   },
   "keywords": [
     "node",
