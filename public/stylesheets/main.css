@@ -184,3 +184,8 @@ body {
   color: red;
   font-size: 12px;
 }
+
+.mail-list-header {
+  color: #fff;
+  background-color: #08c;
+}

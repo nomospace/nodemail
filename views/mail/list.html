@@ -10,12 +10,14 @@
     <p>共 <strong>{{total}}</strong> 封<%if(!box){%>，其中 <a href="/mail/unseen">未读邮件</a> <strong>{{new}}</strong> 封<%}%> <!--<a href="javascript:;">全部设为已读</a>--></p>
   {{/messages}}
   <%}%>
-  <table class="table table-striped">
-    <tr>
-      <th>发件人</th>
-      <th>主题</th>
-      <th style="min-width:140px;">时间</th>
-    </tr>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr class="mail-list-header">
+        <th>发件人</th>
+        <th>主题</th>
+        <th style="min-width:140px;">时间</th>
+      </tr>
+    </thead>
     {{#each msgs}}
       <tr>
       {{#mail}}
