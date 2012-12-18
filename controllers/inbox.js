@@ -234,6 +234,7 @@ function _openBox(box) {
 }
 
 function _search(results, type) {
+  // TODO FATAL ERROR: JS Allocation failed - process out of memory
   if (results) {
 //    console.dir(imap._state.box.permFlags);
     mailObject.messages = results.messages;
