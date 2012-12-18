@@ -1,6 +1,6 @@
-var config = require('../config').config;
 var sanitize = require('validator').sanitize;
 var crypto = require('crypto');
+var config = require('../config').config;
 var mailUtil = require('../libs/mail-util');
 
 exports.showSignin = function(req, res) {
@@ -57,7 +57,6 @@ exports.authUser = function(req, res, next) {
 };
 
 // private
-
 function genSession(user, res) {
   var authToken = encrypt(user.name + '\t' + user.pass, config.sessionSecret);
   // cookie 有效期30天   
