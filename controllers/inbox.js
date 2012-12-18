@@ -11,7 +11,7 @@ var imap, mailObject = {};
 
 var inboxPage;
 
-emitter.setMaxListeners(100);
+emitter.setMaxListeners(1000);
 moment.lang('zh-cn');
 
 emitter.on('messages', function(res) {
