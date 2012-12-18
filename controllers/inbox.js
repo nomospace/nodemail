@@ -11,7 +11,7 @@ var imap, mailObject = {};
 
 var inboxPage;
 
-emitter.setMaxListeners(100);
+emitter.setMaxListeners(1000);
 moment.lang('zh-cn');
 
 emitter.on('messages', function(res) {
@@ -234,6 +234,7 @@ function _openBox(box) {
 }
 
 function _search(results, type) {
+  // TODO FATAL ERROR: JS Allocation failed - process out of memory
   if (results) {
 //    console.dir(imap._state.box.permFlags);
     mailObject.messages = results.messages;

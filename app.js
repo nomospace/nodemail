@@ -1,14 +1,13 @@
 var path = require('path');
-var express = require('express');
-var config = require('./config').config;
-var routes = require('./routes');
 var markdown = require('markdown-js');
 var partials = require('express-partials');
 var ejs = require('ejs');
 var fs = require('fs');
-var authUser = require('./controllers/sign').authUser;
-
+var express = require('express');
 var app = express();
+var authUser = require('./controllers/sign').authUser;
+var config = require('./config').config;
+var routes = require('./routes');
 var appRoot = './';
 
 app.configure('development', function() {
@@ -42,7 +41,6 @@ app.configure('development', function() {
 app.locals({
   config: config,
   csrf: function(req, res) {
-    // todo csrf -> undefined
     return req.session ? req.session._csrf : '';
   }
 });

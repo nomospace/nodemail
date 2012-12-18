@@ -7,33 +7,34 @@ nodemail [![Build Status](https://secure.travis-ci.org/nomospace/nodemail.png)](
 ## 安装部署
 
 ```sh  
-$ git clone https://github.com/nomospace/nodemail.git   
-$ cd nodemail 
-$ npm install  
-$ node app.js
+$ git clone https://github.com/nomospace/nodemail.git    
+$ cd nodemail  
+$ npm install   
+$ node app.js  
 ```  
 或者  
 ```sh
 // install node npm mongodb  
 // run mongod  
 $ npm install nodemail  
-$ cd nodemail  
-$ node app.js
+$ cd nodemail   
+$ node app.js  
 ```  
 或者  
 ```bash
-$ // 先安装 node-webkit https://github.com/rogerwang/node-webkit 
-$ git clone https://github.com/nomospace/nodemail.git   
+$ // 先安装 node-webkit https://github.com/rogerwang/node-webkit   
+$ git clone https://github.com/nomospace/nodemail.git    
 $ cd nodemail  
 $ npm install  
-$ make dev
-```
+$ make dev  
+``` 
 
 
 
 ## Screenshot
 
-![程序截图](https://raw.github.com/nomospace/nodemail/master/demo/ScreenShot1.png)  
+![程序截图](https://raw.github.com/nomospace/nodemail/master/public/images/shot.png)  
+![程序截图](https://raw.github.com/nomospace/nodemail/master/public/images/shot2.png)  
 
 ## Testing
 

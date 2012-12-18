@@ -527,6 +527,7 @@ textarea[id^=wmd-input] {
 	padding: 7px 0px 0px 20px;
 	width: 150px;
 	color: #fff;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .navbar .navbar-search {
 	margin-top: 7px;
