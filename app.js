@@ -5,7 +5,7 @@ var ejs = require('ejs');
 var fs = require('fs');
 var express = require('express');
 var app = express();
-var authUser = require('./controllers/sign').authUser;
+var sign = require('./controllers/sign');
 var config = require('./config').config;
 var routes = require('./routes');
 var appRoot = './';
@@ -29,7 +29,8 @@ app.configure('development', function() {
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({secret: config.sessionSecret}));
-  app.use(authUser);
+  app.use(sign.authUser);
+  app.use(sign.toobusy);
   app.use(partials());
   app.use(express.static(path.join(appRoot, 'public')));
   // 在 HTML 页面中显示程序传递和抛出的异常
