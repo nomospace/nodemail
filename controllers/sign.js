@@ -1,5 +1,6 @@
 var sanitize = require('validator').sanitize;
 var crypto = require('crypto');
+var toobusy = require('toobusy');
 var config = require('../config').config;
 var mailUtil = require('../libs/mail-util');
 
@@ -54,6 +55,14 @@ exports.authUser = function(req, res, next) {
     res.locals({'currentUser': req.session.user});
   }
   return next();
+};
+
+exports.toobusy = function(req, res, next) {
+  if (toobusy()) {
+    res.send(503, '系统忙，请稍后再试');
+  } else {
+    next();
+  }
 };
 
 // private
