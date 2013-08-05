@@ -1,10 +1,10 @@
-nodemail [![Build Status](https://secure.travis-ci.org/nomospace/nodemail.png)](http://travis-ci.org/nomospace/nodemail) [English Doc](https://github.com/nomospace/nodemail/blob/master/README_en.md)
+nodemail [![Build Status](https://secure.travis-ci.org/nomospace/nodemail.png)](http://travis-ci.org/nomospace/nodemail)  
 ========
 
-基于 nodejs 的 web 邮箱
+A simple web-mail base on nodejs.
 
 
-## 安装部署
+## Installation
 
 ```sh  
 $ git clone https://github.com/nomospace/nodemail.git    
@@ -12,7 +12,7 @@ $ cd nodemail
 $ npm install   
 $ node app.js  
 ```  
-或者  
+OR
 ```sh
 // install node npm mongodb  
 // run mongod  
@@ -20,9 +20,9 @@ $ npm install nodemail
 $ cd nodemail   
 $ node app.js  
 ```  
-或者  
+OR
 ```bash
-$ // 先安装 node-webkit https://github.com/rogerwang/node-webkit   
+$ // install node-webkit first https://github.com/rogerwang/node-webkit
 $ git clone https://github.com/nomospace/nodemail.git    
 $ cd nodemail  
 $ npm install  
@@ -31,10 +31,10 @@ $ make dev
 
 
 
-## Screenshot
+## Screenshots
 
-![程序截图](https://raw.github.com/nomospace/nodemail/master/public/images/shot.png)  
-![程序截图](https://raw.github.com/nomospace/nodemail/master/public/images/shot2.png)  
+![pic0](https://raw.github.com/nomospace/nodemail/master/public/images/shot.png)
+![pic1](https://raw.github.com/nomospace/nodemail/master/public/images/shot2.png)
 
 ## Testing
 
@@ -73,3 +73,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+### Under
