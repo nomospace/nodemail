@@ -41,7 +41,7 @@ module.exports = function(app) {
   app.get('/ajax/mail/answered', inbox.getAnswered);
   app.get('/ajax/mail/draft', inbox.getDraft);
   app.get('/ajax/mail/box/:box', inbox.getBoxMail);
-  app.get('/ajax/mail/boxes', inbox.getBoxes);
+//  app.get('/ajax/mail/boxes', inbox.getBoxes);
   app.post('/ajax/mail/send', compose.send);
   app.post('/ajax/mail/:id/addFlags/:flag', inbox.addFlags);
 

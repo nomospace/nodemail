@@ -1,6 +1,6 @@
 {
   "name": "nodemail",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A simple web-mail base on nodejs.",
   "author": "nomospace",
   "main": "index.html",
@@ -29,7 +29,7 @@
     "nodemailer": "~0.3.27",
     "validator": "~0.4.11",
     "mongoose": "~3.1.2",
-    "toobusy": "~0.1.1"
+    "toobusy": "~0.2.3"
   },
   "devDependencies": {},
   "scripts": {
